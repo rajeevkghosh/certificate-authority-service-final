@@ -1,6 +1,6 @@
 provider "google" {
 
-credentials = file("../composer-sa.json")
+#credentials = file("../composer-sa.json")
 project = "modular-scout-345114"
 
 }
