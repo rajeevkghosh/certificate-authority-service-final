@@ -1,6 +1,6 @@
 provider "google" {
 
-#credentials = file("../composer-sa.json")
+credentials = file("../composer-sa.json")
 project = "modular-scout-345114"
 
 }
@@ -35,6 +35,16 @@ resource "google_privateca_ca_pool" "default" {
     foo = "bar"
   }
   issuance_policy {
+
+    identity_constraints {
+      allow_subject_passthrough = true
+      allow_subject_alt_names_passthrough = true
+      cel_expression {
+        expression = "subject_alt_names.all(san, san.type == DNS || san.type == EMAIL )"
+        title = "My title"
+      }
+    }
+
     baseline_values {
       ca_options {
         is_ca = false
@@ -56,7 +66,7 @@ resource "google_privateca_certificate_authority" "test-ca" {
   certificate_authority_id = "my-authority"
   location = "us-central1"
   project = "modular-scout-345114"
-  gcs_bucket = ""
+  gcs_bucket = "composer-test-bucket1"
   pool = google_privateca_ca_pool.default.name
   config {
     subject_config {
