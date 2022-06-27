@@ -101,8 +101,8 @@ resource "google_privateca_certificate_authority" "test-ca" {
   }
   type = "SELF_SIGNED"
   key_spec {
-    //algorithm = "RSA_PKCS1_4096_SHA256"
-    cloud_kms_key_version = data.google_kms_crypto_key_version.crypto_key_version.version
+    algorithm = "RSA_PKCS1_4096_SHA256"
+   // cloud_kms_key_version = data.google_kms_crypto_key_version.crypto_key_version.version
   }
 }
 
