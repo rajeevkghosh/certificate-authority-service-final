@@ -126,3 +126,10 @@ data "google_kms_crypto_key" "cryptokey-1" {
 data "google_kms_crypto_key_version" "crypto_key_version" {
   crypto_key = data.google_kms_crypto_key.cryptokey-1.id
 }
+
+data "google_privateca_ca_pool" "test-pool1" {
+  name = "ca-pool-test1"
+  location = "us-central1"
+  tier = "ENTERPRISE"
+  
+}
