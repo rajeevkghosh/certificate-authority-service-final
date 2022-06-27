@@ -19,7 +19,7 @@ resource "google_privateca_ca_pool" "default" {
   name = "my-ca-pool"
   location = "us-central1"
   tier = "ENTERPRISE"
-  project = "project-id"
+  project = "modular-scout-345114"
   publishing_options {
     publish_ca_cert = true
     publish_crl = true
@@ -48,7 +48,7 @@ resource "google_privateca_ca_pool" "default" {
 resource "google_privateca_certificate_authority" "test-ca" {
   certificate_authority_id = "my-authority"
   location = "us-central1"
-  project = "project-id"
+  project = "modular-scout-345114"
   pool = google_privateca_ca_pool.default.name
   config {
     subject_config {
@@ -87,7 +87,7 @@ resource "google_privateca_certificate_authority" "test-ca" {
 resource "google_privateca_certificate" "default" {
   pool = google_privateca_ca_pool.default.name
   certificate_authority = google_privateca_certificate_authority.test-ca.certificate_authority_id
-  project = "project-id"
+  project = "modular-scout-345114"
   location = "us-central1"
   lifetime = "860s"
   name = "my-certificate"
