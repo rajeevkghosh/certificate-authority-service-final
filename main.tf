@@ -62,7 +62,7 @@ resource "google_privateca_ca_pool" "default" {
   }
 }
 
-resource "google_privateca_certificate_authority" "test-ca" {
+/*resource "google_privateca_certificate_authority" "test-ca" {
   certificate_authority_id = "my-authority"
   location = "us-central1"
   project = "modular-scout-345114"
@@ -127,9 +127,4 @@ data "google_kms_crypto_key_version" "crypto_key_version" {
   crypto_key = data.google_kms_crypto_key.cryptokey-1.id
 }
 
-data "google_privateca_ca_pool" "test-pool1" {
-  name = "ca-pool-test1"
-  location = "us-central1"
-  tier = "ENTERPRISE"
-  
-}
+*/
