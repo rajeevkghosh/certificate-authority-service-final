@@ -68,7 +68,7 @@ resource "google_privateca_certificate_authority" "test-ca" {
   project = "modular-scout-345114"
   gcs_bucket = "composer-test-bucket1"
   //pool = google_privateca_ca_pool.default.name
-  pool= "my-ca-pool"
+  pool= "ca-pool-test1"
   config {
     subject_config {
       subject {
@@ -106,7 +106,7 @@ resource "google_privateca_certificate_authority" "test-ca" {
 
 resource "google_privateca_certificate" "default" {
   //pool = google_privateca_ca_pool.default.name
-  pool = "my-ca-pool"
+  pool = "ca-pool-test1"
   certificate_authority = google_privateca_certificate_authority.test-ca.certificate_authority_id
   project = "modular-scout-345114"
   location = "us-central1"

@@ -4,3 +4,6 @@ main.tf.bkp*
 terraform*
 main.tf-fail
 satish.sentinel
+mock
+mock2
+mock3
