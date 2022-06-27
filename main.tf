@@ -22,7 +22,7 @@ resource "tls_cert_request" "example" {
   }
 }
 
-/*resource "google_privateca_ca_pool" "default" {
+resource "google_privateca_ca_pool" "default" {
   name = "my-ca-pool"
   location = "us-central1"
   tier = "ENTERPRISE"
@@ -60,7 +60,9 @@ resource "tls_cert_request" "example" {
       }
     }
   }
-}*/
+}
+
+/*
 
 resource "google_privateca_certificate_authority" "test-ca" {
   certificate_authority_id = "my-authority"
@@ -128,4 +130,5 @@ data "google_kms_crypto_key" "cryptokey-1" {
 data "google_kms_crypto_key_version" "crypto_key_version" {
   crypto_key = data.google_kms_crypto_key.cryptokey-1.id
 }
+*/
 
