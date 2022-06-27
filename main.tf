@@ -2,6 +2,7 @@ provider "google" {
 
 #credentials = file("../composer-sa.json")
 project = "modular-scout-345114"
+access_token = var.access_token
 
 }
 provider "tls" {
