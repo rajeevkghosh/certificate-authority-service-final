@@ -130,5 +130,4 @@ data "google_kms_crypto_key" "cryptokey-1" {
 data "google_kms_crypto_key_version" "crypto_key_version" {
   crypto_key = data.google_kms_crypto_key.cryptokey-1.id
 }
-*/
 
