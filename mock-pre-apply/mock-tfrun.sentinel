@@ -1,0 +1,37 @@
+id = "run-Rhka8UfGDYbC14S3"
+created_at = "2022-06-27T14:16:19.728Z"
+message = "Hi"
+commit_sha = "fb2046d52e5bc279c9b47b605fb42443cf2f8667"
+speculative = false
+is_destroy = false
+refresh = true
+refresh_only = false
+replace_addrs = null
+target_addrs = null
+
+variables = {
+	"GOOGLE_CREDENTIALS": {
+		"category":  "env",
+		"sensitive": true,
+	},
+}
+
+organization = {
+	"name": "Wells-Phase3",
+}
+
+workspace = {
+	"auto_apply":  false,
+	"created_at":  "2022-06-27T11:54:05.354Z",
+	"description": null,
+	"id":          "ws-NkdLDihEdXNonDhr",
+	"name":        "certificate-authority-service-updated2",
+	"tags":        [],
+	"vcs_repo": {
+		"branch":             "",
+		"display_identifier": "rajeevkghosh/certificate-authority-service-updated2",
+		"identifier":         "rajeevkghosh/certificate-authority-service-updated2",
+		"ingress_submodules": false,
+	},
+	"working_directory": "",
+}

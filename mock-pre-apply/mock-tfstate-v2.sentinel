@@ -1,0 +1,66 @@
+terraform_version = "1.2.3"
+
+outputs = {}
+
+resources = {
+	"tls_cert_request.example": {
+		"address": "tls_cert_request.example",
+		"depends_on": [
+			"tls_private_key.example",
+		],
+		"deposed_key":    "",
+		"index":          null,
+		"mode":           "managed",
+		"module_address": "",
+		"name":           "example",
+		"provider_name":  "registry.terraform.io/hashicorp/tls",
+		"tainted":        false,
+		"type":           "tls_cert_request",
+		"values": {
+			"cert_request_pem": "-----BEGIN CERTIFICATE REQUEST-----\nMIICeDCCAWACAQAwMzEbMBkGA1UEChMSQUNNRSBFeGFtcGxlcywgSW5jMRQwEgYD\nVQQDEwtleGFtcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\nAKGU/q4sa7Tfm8S62WrnZ6tM8fSf1kr3nKaqbiRl/HT7yUY2aM/tS+8Kw49CjKBN\nhKF7gs2KMMZvenzMzNVOVl9mCK1zWfxffP/NPVS+2Q7ksB5lWSnxYfmIorSucqb3\nsqFJ/5fuL7CSl7MBm6+avdLaQi+rheicJWuGFjMyzjyFurrBPg2naK7odAieVKDt\nD4z8mex8eNsYsffEr0EHhzdN/Uf+RO9kBtpotMMDN/MzWFQUyGVMz5qiXCwp1J9m\n8G8280PQrfFOXuRKqvHMWJhmi1itmw9aAihvsIVymaW85huyN9Wgy1zLDMCoJ3JC\no/7+Z1zLbTaGxH7nBVX6GNMCAwEAAaAAMA0GCSqGSIb3DQEBCwUAA4IBAQB0PM4l\nUIFrlNmyb//XLk7lrD4+FGULViW1il0m2ImQ0ZnMgyN1mLi5HZalejCh/i0DRXVY\nGPRBFTDAmX6C+vha7I30RqGJla2lWe9zhPlrOA3c2U+gIMLhrov0sm/H4Z/oy84q\ndL4uiq4SJ8cSeHgLKoqvQ8RzEjbHepX2TDlWbba9INokY5Z0ijfmI0/rLbPkrRju\ngySybwPCN/Xg8MvBzw8lXvkY6xeFp/HxAz72jE3BCaJ3BYwn1+eGtoTJa8oDOfUt\n/qRuQkZpacy7dOsOHmc3TqCEX+g1GTJObXTWzKUcFrX5XsA3eUORooyQoV5Kvq67\navFYPKtYATiLdfhu\n-----END CERTIFICATE REQUEST-----\n",
+			"dns_names":        null,
+			"id":               "c4800115748422bc7429d528ce9d0450b24dd05e",
+			"ip_addresses":     null,
+			"key_algorithm":    "RSA",
+			"private_key_pem":  "REDACTED_SENSITIVE",
+			"subject": [
+				{
+					"common_name":         "example.com",
+					"country":             "",
+					"locality":            "",
+					"organization":        "ACME Examples, Inc",
+					"organizational_unit": "",
+					"postal_code":         "",
+					"province":            "",
+					"serial_number":       "",
+					"street_address":      [],
+				},
+			],
+			"uris": null,
+		},
+	},
+	"tls_private_key.example": {
+		"address":        "tls_private_key.example",
+		"depends_on":     [],
+		"deposed_key":    "",
+		"index":          null,
+		"mode":           "managed",
+		"module_address": "",
+		"name":           "example",
+		"provider_name":  "registry.terraform.io/hashicorp/tls",
+		"tainted":        false,
+		"type":           "tls_private_key",
+		"values": {
+			"algorithm":   "RSA",
+			"ecdsa_curve": "P224",
+			"id":          "e14f06b5d55bbc45edf9d6c867f6e3b91acc6f8f",
+			"private_key_openssh":           "REDACTED_SENSITIVE",
+			"private_key_pem":               "REDACTED_SENSITIVE",
+			"public_key_fingerprint_md5":    "6e:44:8c:e5:14:9a:89:9c:87:f0:03:6f:74:12:ee:37",
+			"public_key_fingerprint_sha256": "SHA256:hRxW4VRDUV1U/qpNfCvFLbvOBzKkIttoRVM3zj4+iKg",
+			"public_key_openssh":            "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQChlP6uLGu035vEutlq52erTPH0n9ZK95ymqm4kZfx0+8lGNmjP7UvvCsOPQoygTYShe4LNijDGb3p8zMzVTlZfZgitc1n8X3z/zT1UvtkO5LAeZVkp8WH5iKK0rnKm97KhSf+X7i+wkpezAZuvmr3S2kIvq4XonCVrhhYzMs48hbq6wT4Np2iu6HQInlSg7Q+M/JnsfHjbGLH3xK9BB4c3Tf1H/kTvZAbaaLTDAzfzM1hUFMhlTM+aolwsKdSfZvBvNvND0K3xTl7kSqrxzFiYZotYrZsPWgIob7CFcpmlvOYbsjfVoMtcywzAqCdyQqP+/mdcy202hsR+5wVV+hjT\n",
+			"public_key_pem":                "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoZT+rixrtN+bxLrZaudn\nq0zx9J/WSvecpqpuJGX8dPvJRjZoz+1L7wrDj0KMoE2EoXuCzYowxm96fMzM1U5W\nX2YIrXNZ/F98/809VL7ZDuSwHmVZKfFh+YiitK5ypveyoUn/l+4vsJKXswGbr5q9\n0tpCL6uF6Jwla4YWMzLOPIW6usE+Dadoruh0CJ5UoO0PjPyZ7Hx42xix98SvQQeH\nN039R/5E72QG2mi0wwM38zNYVBTIZUzPmqJcLCnUn2bwbzbzQ9Ct8U5e5Eqq8cxY\nmGaLWK2bD1oCKG+whXKZpbzmG7I31aDLXMsMwKgnckKj/v5nXMttNobEfucFVfoY\n0wIDAQAB\n-----END PUBLIC KEY-----\n",
+			"rsa_bits":                      2048,
+		},
+	},
+}

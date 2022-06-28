@@ -1,0 +1,103 @@
+# Import common-functions/tfplan-functions/tfplan-functions.sentinel
+# with alias "plan"
+import "tfstate-functions" as tfstate
+import "tfplan-functions" as plan
+import "strings"
+import "types"
+
+# Get all Composer Instances
+allCAPoolTfstateInstances = tfstate.find_resources("google_privateca_ca_pool")
+allCAPoolTfplanInstances = plan.find_resources("google_privateca_ca_pool")
+allCertAuthorityInstances = plan.find_resources("google_privateca_certificate_authority")
+
+#print(allCAPoolTfstateInstances)
+
+array = {}
+for allCAPoolTfstateInstances as address, rc {
+ capoolname = tfstate.evaluate_attribute(rc,"name")
+ capooltier = tfstate.evaluate_attribute(rc,"tier")
+ //print(capoolname)
+ //print(capooltier)
+ 
+array[capoolname] = capooltier
+
+
+
+}
+print("-----Tfstate Map------")
+print(array)
+print("  ")
+//print("---------------")
+array2 = {}
+for allCAPoolTfplanInstances as address, rc {
+cpool_name = plan.evaluate_attribute(rc, "name")
+cpool_tier = plan.evaluate_attribute(rc, "tier")
+
+//print(cpool_name)
+//print(cpool_tier)
+array2[cpool_name] = cpool_tier
+
+
+}
+print("-----TFPlan Map--------")
+print(array2)
+print("  ")
+
+array_main = {}
+
+for array as address,rc {
+//print(address)
+//print(rc)
+array_main[address] = rc
+}
+
+for array2 as address,rc {
+//print(address)
+//print(rc)
+array_main[address] = rc
+}
+
+print("-------Final Map after Merge--------")
+print(array_main)
+b = 0
+c = 0
+for allCertAuthorityInstances as address, rc {
+
+    cert_pool_name = plan.evaluate_attribute(rc, "pool")
+    a = array_main[cert_pool_name]
+    b = a
+    c = cert_pool_name
+}
+print("  ")
+print("  ")
+print("pool name:---> "+c)
+print("pool tier:---> "+b)
+print("  ")
+print("  ")
+
+messages = {}
+for allCertAuthorityInstances as address, rc {
+
+    if b == "ENTERPRISE" {
+    ca_private_kms_key_version = plan.evaluate_attribute(rc, "key_spec.0.cloud_kms_key_version")
+	print("ca_private_kms_key_version is ", ca_private_kms_key_version)
+	if (types.type_of(ca_private_kms_key_version) is "undefined") or (types.type_of(ca_private_kms_key_version) is "null") or (length(ca_private_kms_key_version) == 0) {
+		messages[address] = rc
+		print("The value for ca_private_kms_key_version in Resource " + address + " can't be null or undefined or empty string")
+	} else {
+		cryptoKeyVersionlist = strings.split(ca_private_kms_key_version, "/")
+		if length(cryptoKeyVersionlist) > 1 {
+			if not (cryptoKeyVersionlist[0] == "projects" and cryptoKeyVersionlist[2] == "locations" and cryptoKeyVersionlist[4] == "keyRings" and cryptoKeyVersionlist[6] == "cryptoKeys" and cryptoKeyVersionlist[8] == "cryptoKeyVersions") {
+				messages[address] = rc
+				print("CryptoKeyVersion must be in the format projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*")
+			}
+		} else {
+			messages[address] = rc
+			print("CryptoKeyVersion must be in the format projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*")
+		}
+	}
+    }
+}
+GCP_CAS_CACMEK = rule { length(messages) is 0 }
+
+main = rule {true}

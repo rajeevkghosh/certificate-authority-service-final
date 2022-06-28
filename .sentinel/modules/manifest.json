@@ -1,0 +1,16 @@
+{
+	"records": [
+		{
+			"key": "tfplan-functions",
+			"source": "./tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-updated2/tfplan-functions.sentinel"
+		},
+		{
+			"key": "tfstate-functions",
+			"source": "./tfstate-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-updated2/tfstate-functions.sentinel"
+		}
+	]
+}
