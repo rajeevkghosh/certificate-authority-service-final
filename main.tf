@@ -98,6 +98,7 @@ resource "google_privateca_certificate" "default" {
 data "google_kms_key_ring" "keyring-1" {
   name     = "keyring-1"
   location = "us-central1"
+  project = "modular-scout-345114"
 }
 
 resource "google_kms_crypto_key" "cryptokey-2" {
