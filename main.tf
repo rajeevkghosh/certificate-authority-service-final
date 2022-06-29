@@ -16,7 +16,7 @@ resource "tls_cert_request" "example" {
 }
 
 resource "google_privateca_ca_pool" "default" {
-  name = "my-ca-pool-tf7"
+  name = "my-ca-pool-tf8"
   location = "us-central1"
   tier = "ENTERPRISE"
   project = "modular-scout-345114"
@@ -45,8 +45,8 @@ resource "google_privateca_ca_pool" "default" {
   }
 }
 
-resource "google_privateca_certificate_authority" "test-ca2" {
-  certificate_authority_id = "my-authority2"
+resource "google_privateca_certificate_authority" "test-ca3" {
+  certificate_authority_id = "my-authority3"
   location = "us-central1"
   project = "modular-scout-345114"
   pool = google_privateca_ca_pool.default.name
@@ -88,7 +88,7 @@ resource "google_privateca_certificate_authority" "test-ca2" {
 
 resource "google_privateca_certificate" "default" {
   pool = google_privateca_ca_pool.default.name
-  certificate_authority = google_privateca_certificate_authority.test-ca2.certificate_authority_id
+  certificate_authority = google_privateca_certificate_authority.test-ca3.certificate_authority_id
   project = "modular-scout-345114"
   location = "us-central1"
   lifetime = "860s"
@@ -102,21 +102,11 @@ data "google_kms_key_ring" "keyring-1" {
   project = "modular-scout-345114"
 }
 
-resource "google_kms_crypto_key" "cryptokey-2" {
+data "google_kms_crypto_key" "cryptokey-2" {
   name     = "cryptokey-2"
   key_ring = data.google_kms_key_ring.keyring-1.id
-  purpose  = "ASYMMETRIC_SIGN"
-
-  version_template {
-    algorithm = "RSA_SIGN_PSS_2048_SHA256"
-  }
-
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
-
 data "google_kms_crypto_key_version" "crypto_key_version" {
-  crypto_key = google_kms_crypto_key.cryptokey-2.id
+  crypto_key = data.google_kms_crypto_key.cryptokey-2.id
 }
