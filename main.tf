@@ -45,8 +45,8 @@ resource "google_privateca_ca_pool" "default" {
   }
 }
 
-resource "google_privateca_certificate_authority" "test-ca" {
-  certificate_authority_id = "my-authority"
+resource "google_privateca_certificate_authority" "test-ca2" {
+  certificate_authority_id = "my-authority2"
   location = "us-central1"
   project = "modular-scout-345114"
   pool = google_privateca_ca_pool.default.name
