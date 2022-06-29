@@ -116,5 +116,5 @@ resource "google_kms_crypto_key" "cryptokey-2" {
 
 
 data "google_kms_crypto_key_version" "crypto_key_version" {
-  crypto_key = data.google_kms_crypto_key.cryptokey-2.id
+  crypto_key = google_kms_crypto_key.cryptokey-2.id
 }
