@@ -80,7 +80,8 @@ resource "google_privateca_certificate_authority" "test-ca" {
   }
   type = "SELF_SIGNED"
   key_spec {
-    algorithm = "RSA_PKCS1_4096_SHA256"
+    algorithm = "RSA_SIGN_PSS_2048_SHA256"
+    cloud_kms_key_version = data.google_kms_crypto_key_version.crypto_key_version
   }
 }
 
@@ -92,4 +93,28 @@ resource "google_privateca_certificate" "default" {
   lifetime = "860s"
   name = "my-certificate"
   pem_csr = tls_cert_request.example.cert_request_pem
+}
+
+data "google_kms_key_ring" "keyring-1" {
+  name     = "keyring-1"
+  location = "us-central1"
+}
+
+resource "google_kms_crypto_key" "cryptokey-2" {
+  name     = "cryptokey-2"
+  key_ring = data.google_kms_key_ring.keyring-1.id
+  purpose  = "ASYMMETRIC_SIGN"
+
+  version_template {
+    algorithm = "RSA_SIGN_PSS_2048_SHA256"
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+
+data "google_kms_crypto_key_version" "crypto_key_version" {
+  crypto_key = data.google_kms_crypto_key.cryptokey-2.id
 }
