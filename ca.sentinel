@@ -75,6 +75,9 @@ print("pool tier:---> "+b)
 print("  ")
 print("  ")
 
+#######################################################
+####--------------Enterprise Rule------------------####
+#######################################################
 messages = {}
 for allCertAuthorityInstances as address, rc {
 
@@ -99,5 +102,6 @@ for allCertAuthorityInstances as address, rc {
     }
 }
 GCP_CAS_CACMEK = rule { length(messages) is 0 }
+
 
 main = rule {GCP_CAS_CACMEK}
