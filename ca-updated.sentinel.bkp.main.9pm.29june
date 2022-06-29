@@ -1,0 +1,160 @@
+# Import common-functions/tfplan-functions/tfplan-functions.sentinel
+# with alias "plan"
+import "tfstate-functions" as tfstate
+import "tfstate/v2" as tfstate2
+import "tfplan-functions" as plan
+import "strings"
+import "types"
+
+# Allowed Algorithm List
+allowed_algorithm = ["RSA_PSS_2048_SHA256", "RSA_PSS_3072_SHA256", "RSA_PSS_4096_SHA256", "RSA_PKCS1_2048_SHA256", "RSA_PKCS1_3072_SHA256", "RSA_PKCS1_4096_SHA256"]
+# Get all Composer Instances
+allCAPoolTfstateInstances = tfstate.find_resources("google_privateca_ca_pool")
+allCAPoolTfplanInstances = plan.find_resources("google_privateca_ca_pool")
+allCertAuthorityInstances = plan.find_resources("google_privateca_certificate_authority")
+allCryptoKeyTfplanInstances = plan.find_resources("google_kms_crypto_key")
+
+
+
+#print(allCAPoolTfstateInstances)
+
+array = {}
+for allCAPoolTfstateInstances as address, rc {
+ capoolname = tfstate.evaluate_attribute(rc,"name")
+ capooltier = tfstate.evaluate_attribute(rc,"tier")
+ //print(capoolname)
+ //print(capooltier)
+ 
+array[capoolname] = capooltier
+
+
+
+}
+print("-----Tfstate Map------")
+print(array)
+print("  ")
+//print("---------------")
+array2 = {}
+for allCAPoolTfplanInstances as address, rc {
+cpool_name = plan.evaluate_attribute(rc, "name")
+cpool_tier = plan.evaluate_attribute(rc, "tier")
+
+//print(cpool_name)
+//print(cpool_tier)
+array2[cpool_name] = cpool_tier
+
+
+}
+print("-----TFPlan Map--------")
+print(array2)
+print("  ")
+
+array_main = {}
+
+for array as address,rc {
+//print(address)
+//print(rc)
+array_main[address] = rc
+}
+
+for array2 as address,rc {
+//print(address)
+//print(rc)
+array_main[address] = rc
+}
+
+print("-------Final Map after Merge--------")
+print(array_main)
+b = 0
+c = 0
+for allCertAuthorityInstances as address, rc {
+
+    cert_pool_name = plan.evaluate_attribute(rc, "pool")
+    a = array_main[cert_pool_name]
+    b = a
+    c = cert_pool_name
+}
+print("  ")
+print("  ")
+print("pool name:---> "+c)
+print("pool tier:---> "+b)
+print("  ")
+print("  ")
+
+
+
+
+#######################################################
+####--------------Enterprise Rule-2-----------------####
+#######################################################
+
+//allCryptoKeyTfstateInstances = tfstate.find_resources("google_kms_crypto_key_version")
+
+find_resources = func(type) {
+  resources = filter tfstate2.resources as address, r {
+  	r.type is type 
+  }
+
+  return resources
+}
+
+
+allCryptoKeyTfstateInstances = find_resources("google_kms_crypto_key")
+//print(allCryptoKeyTfstateInstances)
+
+array_tfstate_cryptokey = {}
+for allCryptoKeyTfstateInstances as address,rc {
+  cryptokeyname = tfstate.evaluate_attribute(rc,"name")
+  cryptokeyalgorithm = tfstate.evaluate_attribute(rc,"version_template.0.algorithm")
+  array_tfstate_cryptokey[cryptokeyname] = cryptokeyalgorithm
+}
+
+print(array_tfstate_cryptokey)
+
+array_tfplan_cryptokey = {}
+for allCryptoKeyTfplanInstances as address,rc {
+  crypto_plan_keyname = plan.evaluate_attribute(rc,"name")
+  crypto_plan_key_algorithm = plan.evaluate_attribute(rc,"version_template.0.algorithm")
+  array_tfplan_cryptokey[crypto_plan_keyname] = crypto_plan_key_algorithm
+}
+
+//print(allCryptoKeyTfplanInstances)
+print(array_tfplan_cryptokey)
+
+array_cryptokey_main = {}
+
+for array_tfstate_cryptokey as address,rc {
+//print(address)
+//print(rc)
+array_cryptokey_main[address] = rc
+}
+for array_tfplan_cryptokey as address,rc {
+//print(address)
+//print(rc)
+array_cryptokey_main[address] = rc
+}
+
+print(array_cryptokey_main)
+
+if b == "ENTERPRISE" {
+messages_algorithm = {}
+for allCertAuthorityInstances as address, rc {
+
+    kms_key_version = plan.evaluate_attribute(rc, "key_spec.0.cloud_kms_key_version")
+	print(kms_key_version )
+	cryptoKeyName= strings.split(kms_key_version, "/")
+	print(cryptoKeyName[7])
+	c_key_name = cryptoKeyName[7]
+	print(array_cryptokey_main[c_key_name])
+	x = array_cryptokey_main[c_key_name]
+	print (x)
+
+    if x in allowed_algorithm {
+		print ("hhhhhh")
+	}
+}
+
+}
+
+
+main = rule {true}

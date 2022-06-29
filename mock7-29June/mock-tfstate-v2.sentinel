@@ -1,0 +1,80 @@
+terraform_version = "1.2.3"
+
+outputs = {}
+
+resources = {
+	"google_kms_crypto_key.cryptokey-2": {
+		"address":        "google_kms_crypto_key.cryptokey-2",
+		"depends_on":     [],
+		"deposed_key":    "",
+		"index":          null,
+		"mode":           "data",
+		"module_address": "",
+		"name":           "cryptokey-2",
+		"provider_name":  "registry.terraform.io/hashicorp/google",
+		"tainted":        false,
+		"type":           "google_kms_crypto_key",
+		"values": {
+			"destroy_scheduled_duration": "86400s",
+			"id":                            "projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1/cryptoKeys/cryptokey-2",
+			"import_only":                   false,
+			"key_ring":                      "projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1",
+			"labels":                        {},
+			"name":                          "cryptokey-2",
+			"purpose":                       "ASYMMETRIC_SIGN",
+			"rotation_period":               "",
+			"skip_initial_version_creation": null,
+			"version_template": [
+				{
+					"algorithm":        "RSA_SIGN_PSS_2048_SHA256",
+					"protection_level": "SOFTWARE",
+				},
+			],
+		},
+	},
+	"google_kms_crypto_key_version.crypto_key_version": {
+		"address":        "google_kms_crypto_key_version.crypto_key_version",
+		"depends_on":     [],
+		"deposed_key":    "",
+		"index":          null,
+		"mode":           "data",
+		"module_address": "",
+		"name":           "crypto_key_version",
+		"provider_name":  "registry.terraform.io/hashicorp/google",
+		"tainted":        false,
+		"type":           "google_kms_crypto_key_version",
+		"values": {
+			"algorithm":        "RSA_SIGN_PSS_2048_SHA256",
+			"crypto_key":       "projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1/cryptoKeys/cryptokey-2",
+			"id":               "//cloudkms.googleapis.com/v1/projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1/cryptoKeys/cryptokey-2/cryptoKeyVersions/1",
+			"name":             "projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1/cryptoKeys/cryptokey-2/cryptoKeyVersions/1",
+			"protection_level": "SOFTWARE",
+			"public_key": [
+				{
+					"algorithm": "RSA_SIGN_PSS_2048_SHA256",
+					"pem":       "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAq6hokVGR3q8L1kF0DI0F\n+pgSD0arKBvEi4qaGzxvz1/LVpo8Gm68MjqPGoYY0dAugcPDXFwN/qxQcbLenH/v\nTBEtN7PPbucufBp4PlvsOfJ7Ji9nwOfCtbOjwOEp7ItlgtWRDandR0tgpLR+fgmo\nymCP39bttk6h1WEkqs0ge1Ks58DF+IqHSe3m563soMvs2jTEe8vwpu/g/5qw0njs\npHN5dAjDhB6sSfhYaGZMKdfeXwBUDzlNvOnoMXLx+Z7cyl4zjOqgQqr8eRmyQBdT\n+z5ZWh3DvrzzetrHExTsU5CC9C/cHsBVzz9crSW3WX28ka3A+d+HuFntbfEXpnap\naQIDAQAB\n-----END PUBLIC KEY-----\n",
+				},
+			],
+			"state":   "ENABLED",
+			"version": 1,
+		},
+	},
+	"google_kms_key_ring.keyring-1": {
+		"address":        "google_kms_key_ring.keyring-1",
+		"depends_on":     [],
+		"deposed_key":    "",
+		"index":          null,
+		"mode":           "data",
+		"module_address": "",
+		"name":           "keyring-1",
+		"provider_name":  "registry.terraform.io/hashicorp/google",
+		"tainted":        false,
+		"type":           "google_kms_key_ring",
+		"values": {
+			"id":       "projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1",
+			"location": "us-central1",
+			"name":     "keyring-1",
+			"project":  "modular-scout-345114",
+		},
+	},
+}

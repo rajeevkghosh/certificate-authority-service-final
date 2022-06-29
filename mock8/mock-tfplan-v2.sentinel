@@ -3,6 +3,48 @@ terraform_version = "1.2.3"
 planned_values = {
 	"outputs": {},
 	"resources": {
+		"google_kms_crypto_key.cryptokey-2": {
+			"address":        "google_kms_crypto_key.cryptokey-2",
+			"depends_on":     [],
+			"deposed_key":    "",
+			"index":          null,
+			"mode":           "managed",
+			"module_address": "",
+			"name":           "cryptokey-2",
+			"provider_name":  "registry.terraform.io/hashicorp/google",
+			"tainted":        false,
+			"type":           "google_kms_crypto_key",
+			"values": {
+				"key_ring":                      "projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1",
+				"labels":                        null,
+				"name":                          "cryptokey-2",
+				"purpose":                       "ASYMMETRIC_SIGN",
+				"rotation_period":               null,
+				"skip_initial_version_creation": null,
+				"timeouts":                      null,
+				"version_template": [
+					{
+						"algorithm":        "RSA_SIGN_PSS_2048_SHA256",
+						"protection_level": "SOFTWARE",
+					},
+				],
+			},
+		},
+		"google_kms_crypto_key_version.crypto_key_version": {
+			"address":        "google_kms_crypto_key_version.crypto_key_version",
+			"depends_on":     [],
+			"deposed_key":    "",
+			"index":          null,
+			"mode":           "data",
+			"module_address": "",
+			"name":           "crypto_key_version",
+			"provider_name":  "registry.terraform.io/hashicorp/google",
+			"tainted":        false,
+			"type":           "google_kms_crypto_key_version",
+			"values": {
+				"version": null,
+			},
+		},
 		"google_privateca_ca_pool.default": {
 			"address":        "google_privateca_ca_pool.default",
 			"depends_on":     [],
@@ -101,7 +143,6 @@ planned_values = {
 				"lifetime":              "860s",
 				"location":              "us-central1",
 				"name":                  "my-certificate",
-				"pem_csr":               "-----BEGIN CERTIFICATE REQUEST-----\nMIICeDCCAWACAQAwMzEbMBkGA1UEChMSQUNNRSBFeGFtcGxlcywgSW5jMRQwEgYD\nVQQDEwtleGFtcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\nAKGU/q4sa7Tfm8S62WrnZ6tM8fSf1kr3nKaqbiRl/HT7yUY2aM/tS+8Kw49CjKBN\nhKF7gs2KMMZvenzMzNVOVl9mCK1zWfxffP/NPVS+2Q7ksB5lWSnxYfmIorSucqb3\nsqFJ/5fuL7CSl7MBm6+avdLaQi+rheicJWuGFjMyzjyFurrBPg2naK7odAieVKDt\nD4z8mex8eNsYsffEr0EHhzdN/Uf+RO9kBtpotMMDN/MzWFQUyGVMz5qiXCwp1J9m\n8G8280PQrfFOXuRKqvHMWJhmi1itmw9aAihvsIVymaW85huyN9Wgy1zLDMCoJ3JC\no/7+Z1zLbTaGxH7nBVX6GNMCAwEAAaAAMA0GCSqGSIb3DQEBCwUAA4IBAQB0PM4l\nUIFrlNmyb//XLk7lrD4+FGULViW1il0m2ImQ0ZnMgyN1mLi5HZalejCh/i0DRXVY\nGPRBFTDAmX6C+vha7I30RqGJla2lWe9zhPlrOA3c2U+gIMLhrov0sm/H4Z/oy84q\ndL4uiq4SJ8cSeHgLKoqvQ8RzEjbHepX2TDlWbba9INokY5Z0ijfmI0/rLbPkrRju\ngySybwPCN/Xg8MvBzw8lXvkY6xeFp/HxAz72jE3BCaJ3BYwn1+eGtoTJa8oDOfUt\n/qRuQkZpacy7dOsOHmc3TqCEX+g1GTJObXTWzKUcFrX5XsA3eUORooyQoV5Kvq67\navFYPKtYATiLdfhu\n-----END CERTIFICATE REQUEST-----\n",
 				"pool":                  "my-ca-pool-tf2",
 				"project":               "modular-scout-345114",
 				"timeouts":              null,
@@ -190,8 +231,7 @@ planned_values = {
 				"ignore_active_certificates_on_deletion": false,
 				"key_spec": [
 					{
-                        "algorithm":             null,
-						"cloud_kms_key_version": "projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1/cryptoKeys/cryptokey-2/cryptoKeyVersions/1",
+						"algorithm": "RSA_SIGN_PSS_2048_SHA256",
 					},
 				],
 				"labels":   null,
@@ -215,23 +255,20 @@ planned_values = {
 			"tainted":        false,
 			"type":           "tls_cert_request",
 			"values": {
-				"cert_request_pem": "-----BEGIN CERTIFICATE REQUEST-----\nMIICeDCCAWACAQAwMzEbMBkGA1UEChMSQUNNRSBFeGFtcGxlcywgSW5jMRQwEgYD\nVQQDEwtleGFtcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\nAKGU/q4sa7Tfm8S62WrnZ6tM8fSf1kr3nKaqbiRl/HT7yUY2aM/tS+8Kw49CjKBN\nhKF7gs2KMMZvenzMzNVOVl9mCK1zWfxffP/NPVS+2Q7ksB5lWSnxYfmIorSucqb3\nsqFJ/5fuL7CSl7MBm6+avdLaQi+rheicJWuGFjMyzjyFurrBPg2naK7odAieVKDt\nD4z8mex8eNsYsffEr0EHhzdN/Uf+RO9kBtpotMMDN/MzWFQUyGVMz5qiXCwp1J9m\n8G8280PQrfFOXuRKqvHMWJhmi1itmw9aAihvsIVymaW85huyN9Wgy1zLDMCoJ3JC\no/7+Z1zLbTaGxH7nBVX6GNMCAwEAAaAAMA0GCSqGSIb3DQEBCwUAA4IBAQB0PM4l\nUIFrlNmyb//XLk7lrD4+FGULViW1il0m2ImQ0ZnMgyN1mLi5HZalejCh/i0DRXVY\nGPRBFTDAmX6C+vha7I30RqGJla2lWe9zhPlrOA3c2U+gIMLhrov0sm/H4Z/oy84q\ndL4uiq4SJ8cSeHgLKoqvQ8RzEjbHepX2TDlWbba9INokY5Z0ijfmI0/rLbPkrRju\ngySybwPCN/Xg8MvBzw8lXvkY6xeFp/HxAz72jE3BCaJ3BYwn1+eGtoTJa8oDOfUt\n/qRuQkZpacy7dOsOHmc3TqCEX+g1GTJObXTWzKUcFrX5XsA3eUORooyQoV5Kvq67\navFYPKtYATiLdfhu\n-----END CERTIFICATE REQUEST-----\n",
-				"dns_names":        null,
-				"id":               "c4800115748422bc7429d528ce9d0450b24dd05e",
-				"ip_addresses":     null,
-				"key_algorithm":    "RSA",
-				"private_key_pem":  "REDACTED_SENSITIVE",
+				"dns_names":     null,
+				"ip_addresses":  null,
+				"key_algorithm": "RSA",
 				"subject": [
 					{
 						"common_name":         "example.com",
-						"country":             "",
-						"locality":            "",
+						"country":             null,
+						"locality":            null,
 						"organization":        "ACME Examples, Inc",
-						"organizational_unit": "",
-						"postal_code":         "",
-						"province":            "",
-						"serial_number":       "",
-						"street_address":      [],
+						"organizational_unit": null,
+						"postal_code":         null,
+						"province":            null,
+						"serial_number":       null,
+						"street_address":      null,
 					},
 				],
 				"uris": null,
@@ -251,23 +288,82 @@ planned_values = {
 			"values": {
 				"algorithm":   "RSA",
 				"ecdsa_curve": "P224",
-				"id":          "e14f06b5d55bbc45edf9d6c867f6e3b91acc6f8f",
-				"private_key_openssh":           "REDACTED_SENSITIVE",
-				"private_key_pem":               "REDACTED_SENSITIVE",
-				"public_key_fingerprint_md5":    "6e:44:8c:e5:14:9a:89:9c:87:f0:03:6f:74:12:ee:37",
-				"public_key_fingerprint_sha256": "SHA256:hRxW4VRDUV1U/qpNfCvFLbvOBzKkIttoRVM3zj4+iKg",
-				"public_key_openssh":            "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQChlP6uLGu035vEutlq52erTPH0n9ZK95ymqm4kZfx0+8lGNmjP7UvvCsOPQoygTYShe4LNijDGb3p8zMzVTlZfZgitc1n8X3z/zT1UvtkO5LAeZVkp8WH5iKK0rnKm97KhSf+X7i+wkpezAZuvmr3S2kIvq4XonCVrhhYzMs48hbq6wT4Np2iu6HQInlSg7Q+M/JnsfHjbGLH3xK9BB4c3Tf1H/kTvZAbaaLTDAzfzM1hUFMhlTM+aolwsKdSfZvBvNvND0K3xTl7kSqrxzFiYZotYrZsPWgIob7CFcpmlvOYbsjfVoMtcywzAqCdyQqP+/mdcy202hsR+5wVV+hjT\n",
-				"public_key_pem":                "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoZT+rixrtN+bxLrZaudn\nq0zx9J/WSvecpqpuJGX8dPvJRjZoz+1L7wrDj0KMoE2EoXuCzYowxm96fMzM1U5W\nX2YIrXNZ/F98/809VL7ZDuSwHmVZKfFh+YiitK5ypveyoUn/l+4vsJKXswGbr5q9\n0tpCL6uF6Jwla4YWMzLOPIW6usE+Dadoruh0CJ5UoO0PjPyZ7Hx42xix98SvQQeH\nN039R/5E72QG2mi0wwM38zNYVBTIZUzPmqJcLCnUn2bwbzbzQ9Ct8U5e5Eqq8cxY\nmGaLWK2bD1oCKG+whXKZpbzmG7I31aDLXMsMwKgnckKj/v5nXMttNobEfucFVfoY\n0wIDAQAB\n-----END PUBLIC KEY-----\n",
-				"rsa_bits":                      2048,
+				"rsa_bits":    2048,
 			},
 		},
-		
 	},
 }
 
 variables = {}
 
 resource_changes = {
+	"data.google_kms_crypto_key_version.crypto_key_version": {
+		"address": "data.google_kms_crypto_key_version.crypto_key_version",
+		"change": {
+			"actions": [
+				"read",
+			],
+			"after": {
+				"version": null,
+			},
+			"after_unknown": {
+				"algorithm":        true,
+				"crypto_key":       true,
+				"id":               true,
+				"name":             true,
+				"protection_level": true,
+				"public_key":       true,
+				"state":            true,
+			},
+			"before": null,
+		},
+		"deposed":        "",
+		"index":          null,
+		"mode":           "data",
+		"module_address": "",
+		"name":           "crypto_key_version",
+		"provider_name":  "registry.terraform.io/hashicorp/google",
+		"type":           "google_kms_crypto_key_version",
+	},
+	"google_kms_crypto_key.cryptokey-2": {
+		"address": "google_kms_crypto_key.cryptokey-2",
+		"change": {
+			"actions": [
+				"create",
+			],
+			"after": {
+				"key_ring":                      "projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1",
+				"labels":                        null,
+				"name":                          "cryptokey-2",
+				"purpose":                       "ASYMMETRIC_SIGN",
+				"rotation_period":               null,
+				"skip_initial_version_creation": null,
+				"timeouts":                      null,
+				"version_template": [
+					{
+						"algorithm":        "RSA_SIGN_PSS_2048_SHA256",
+						"protection_level": "SOFTWARE",
+					},
+				],
+			},
+			"after_unknown": {
+				"destroy_scheduled_duration": true,
+				"id":          true,
+				"import_only": true,
+				"version_template": [
+					{},
+				],
+			},
+			"before": null,
+		},
+		"deposed":        "",
+		"index":          null,
+		"mode":           "managed",
+		"module_address": "",
+		"name":           "cryptokey-2",
+		"provider_name":  "registry.terraform.io/hashicorp/google",
+		"type":           "google_kms_crypto_key",
+	},
 	"google_privateca_ca_pool.default": {
 		"address": "google_privateca_ca_pool.default",
 		"change": {
@@ -330,7 +426,7 @@ resource_changes = {
 					"foo": "bar",
 				},
 				"location": "us-central1",
-				"name":     "my-ca-pool-tf6",
+				"name":     "my-ca-pool-tf2",
 				"project":  "modular-scout-345114",
 				"publishing_options": [
 					{
@@ -399,7 +495,6 @@ resource_changes = {
 				"lifetime":              "860s",
 				"location":              "us-central1",
 				"name":                  "my-certificate",
-				"pem_csr":               "-----BEGIN CERTIFICATE REQUEST-----\nMIICeDCCAWACAQAwMzEbMBkGA1UEChMSQUNNRSBFeGFtcGxlcywgSW5jMRQwEgYD\nVQQDEwtleGFtcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\nAKGU/q4sa7Tfm8S62WrnZ6tM8fSf1kr3nKaqbiRl/HT7yUY2aM/tS+8Kw49CjKBN\nhKF7gs2KMMZvenzMzNVOVl9mCK1zWfxffP/NPVS+2Q7ksB5lWSnxYfmIorSucqb3\nsqFJ/5fuL7CSl7MBm6+avdLaQi+rheicJWuGFjMyzjyFurrBPg2naK7odAieVKDt\nD4z8mex8eNsYsffEr0EHhzdN/Uf+RO9kBtpotMMDN/MzWFQUyGVMz5qiXCwp1J9m\n8G8280PQrfFOXuRKqvHMWJhmi1itmw9aAihvsIVymaW85huyN9Wgy1zLDMCoJ3JC\no/7+Z1zLbTaGxH7nBVX6GNMCAwEAAaAAMA0GCSqGSIb3DQEBCwUAA4IBAQB0PM4l\nUIFrlNmyb//XLk7lrD4+FGULViW1il0m2ImQ0ZnMgyN1mLi5HZalejCh/i0DRXVY\nGPRBFTDAmX6C+vha7I30RqGJla2lWe9zhPlrOA3c2U+gIMLhrov0sm/H4Z/oy84q\ndL4uiq4SJ8cSeHgLKoqvQ8RzEjbHepX2TDlWbba9INokY5Z0ijfmI0/rLbPkrRju\ngySybwPCN/Xg8MvBzw8lXvkY6xeFp/HxAz72jE3BCaJ3BYwn1+eGtoTJa8oDOfUt\n/qRuQkZpacy7dOsOHmc3TqCEX+g1GTJObXTWzKUcFrX5XsA3eUORooyQoV5Kvq67\navFYPKtYATiLdfhu\n-----END CERTIFICATE REQUEST-----\n",
 				"pool":                  "my-ca-pool-tf2",
 				"project":               "modular-scout-345114",
 				"timeouts":              null,
@@ -413,6 +508,7 @@ resource_changes = {
 				"pem_certificate":              true,
 				"pem_certificate_chain":        true,
 				"pem_certificates":             true,
+				"pem_csr":                      true,
 				"revocation_details":           true,
 				"update_time":                  true,
 			},
@@ -504,8 +600,7 @@ resource_changes = {
 				"ignore_active_certificates_on_deletion": false,
 				"key_spec": [
 					{
-						"algorithm":             null,
-						"cloud_kms_key_version": "projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1/cryptoKeys/cryptokey-2/cryptoKeyVersions/1",
+						"algorithm": "RSA_SIGN_PSS_2048_SHA256",
 					},
 				],
 				"labels":   null,
@@ -553,7 +648,9 @@ resource_changes = {
 				"create_time": true,
 				"id":          true,
 				"key_spec": [
-					{},
+					{
+						"cloud_kms_key_version": true,
+					},
 				],
 				"name":                true,
 				"pem_ca_certificates": true,
@@ -574,53 +671,36 @@ resource_changes = {
 		"address": "tls_cert_request.example",
 		"change": {
 			"actions": [
-				"no-op",
+				"create",
 			],
 			"after": {
-				"cert_request_pem": "-----BEGIN CERTIFICATE REQUEST-----\nMIICeDCCAWACAQAwMzEbMBkGA1UEChMSQUNNRSBFeGFtcGxlcywgSW5jMRQwEgYD\nVQQDEwtleGFtcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\nAKGU/q4sa7Tfm8S62WrnZ6tM8fSf1kr3nKaqbiRl/HT7yUY2aM/tS+8Kw49CjKBN\nhKF7gs2KMMZvenzMzNVOVl9mCK1zWfxffP/NPVS+2Q7ksB5lWSnxYfmIorSucqb3\nsqFJ/5fuL7CSl7MBm6+avdLaQi+rheicJWuGFjMyzjyFurrBPg2naK7odAieVKDt\nD4z8mex8eNsYsffEr0EHhzdN/Uf+RO9kBtpotMMDN/MzWFQUyGVMz5qiXCwp1J9m\n8G8280PQrfFOXuRKqvHMWJhmi1itmw9aAihvsIVymaW85huyN9Wgy1zLDMCoJ3JC\no/7+Z1zLbTaGxH7nBVX6GNMCAwEAAaAAMA0GCSqGSIb3DQEBCwUAA4IBAQB0PM4l\nUIFrlNmyb//XLk7lrD4+FGULViW1il0m2ImQ0ZnMgyN1mLi5HZalejCh/i0DRXVY\nGPRBFTDAmX6C+vha7I30RqGJla2lWe9zhPlrOA3c2U+gIMLhrov0sm/H4Z/oy84q\ndL4uiq4SJ8cSeHgLKoqvQ8RzEjbHepX2TDlWbba9INokY5Z0ijfmI0/rLbPkrRju\ngySybwPCN/Xg8MvBzw8lXvkY6xeFp/HxAz72jE3BCaJ3BYwn1+eGtoTJa8oDOfUt\n/qRuQkZpacy7dOsOHmc3TqCEX+g1GTJObXTWzKUcFrX5XsA3eUORooyQoV5Kvq67\navFYPKtYATiLdfhu\n-----END CERTIFICATE REQUEST-----\n",
-				"dns_names":        null,
-				"id":               "c4800115748422bc7429d528ce9d0450b24dd05e",
-				"ip_addresses":     null,
-				"key_algorithm":    "RSA",
-				"private_key_pem":  "REDACTED_SENSITIVE",
+				"dns_names":     null,
+				"ip_addresses":  null,
+				"key_algorithm": "RSA",
 				"subject": [
 					{
 						"common_name":         "example.com",
-						"country":             "",
-						"locality":            "",
+						"country":             null,
+						"locality":            null,
 						"organization":        "ACME Examples, Inc",
-						"organizational_unit": "",
-						"postal_code":         "",
-						"province":            "",
-						"serial_number":       "",
-						"street_address":      [],
+						"organizational_unit": null,
+						"postal_code":         null,
+						"province":            null,
+						"serial_number":       null,
+						"street_address":      null,
 					},
 				],
 				"uris": null,
 			},
-			"after_unknown": {},
-			"before": {
-				"cert_request_pem": "-----BEGIN CERTIFICATE REQUEST-----\nMIICeDCCAWACAQAwMzEbMBkGA1UEChMSQUNNRSBFeGFtcGxlcywgSW5jMRQwEgYD\nVQQDEwtleGFtcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\nAKGU/q4sa7Tfm8S62WrnZ6tM8fSf1kr3nKaqbiRl/HT7yUY2aM/tS+8Kw49CjKBN\nhKF7gs2KMMZvenzMzNVOVl9mCK1zWfxffP/NPVS+2Q7ksB5lWSnxYfmIorSucqb3\nsqFJ/5fuL7CSl7MBm6+avdLaQi+rheicJWuGFjMyzjyFurrBPg2naK7odAieVKDt\nD4z8mex8eNsYsffEr0EHhzdN/Uf+RO9kBtpotMMDN/MzWFQUyGVMz5qiXCwp1J9m\n8G8280PQrfFOXuRKqvHMWJhmi1itmw9aAihvsIVymaW85huyN9Wgy1zLDMCoJ3JC\no/7+Z1zLbTaGxH7nBVX6GNMCAwEAAaAAMA0GCSqGSIb3DQEBCwUAA4IBAQB0PM4l\nUIFrlNmyb//XLk7lrD4+FGULViW1il0m2ImQ0ZnMgyN1mLi5HZalejCh/i0DRXVY\nGPRBFTDAmX6C+vha7I30RqGJla2lWe9zhPlrOA3c2U+gIMLhrov0sm/H4Z/oy84q\ndL4uiq4SJ8cSeHgLKoqvQ8RzEjbHepX2TDlWbba9INokY5Z0ijfmI0/rLbPkrRju\ngySybwPCN/Xg8MvBzw8lXvkY6xeFp/HxAz72jE3BCaJ3BYwn1+eGtoTJa8oDOfUt\n/qRuQkZpacy7dOsOHmc3TqCEX+g1GTJObXTWzKUcFrX5XsA3eUORooyQoV5Kvq67\navFYPKtYATiLdfhu\n-----END CERTIFICATE REQUEST-----\n",
-				"dns_names":        null,
-				"id":               "c4800115748422bc7429d528ce9d0450b24dd05e",
-				"ip_addresses":     null,
-				"key_algorithm":    "RSA",
-				"private_key_pem":  "REDACTED_SENSITIVE",
+			"after_unknown": {
+				"cert_request_pem": true,
+				"id":               true,
+				"private_key_pem":  true,
 				"subject": [
-					{
-						"common_name":         "example.com",
-						"country":             "",
-						"locality":            "",
-						"organization":        "ACME Examples, Inc",
-						"organizational_unit": "",
-						"postal_code":         "",
-						"province":            "",
-						"serial_number":       "",
-						"street_address":      [],
-					},
+					{},
 				],
-				"uris": null,
 			},
+			"before": null,
 		},
 		"deposed":        "",
 		"index":          null,
@@ -634,33 +714,23 @@ resource_changes = {
 		"address": "tls_private_key.example",
 		"change": {
 			"actions": [
-				"no-op",
+				"create",
 			],
 			"after": {
 				"algorithm":   "RSA",
 				"ecdsa_curve": "P224",
-				"id":          "e14f06b5d55bbc45edf9d6c867f6e3b91acc6f8f",
-				"private_key_openssh":           "REDACTED_SENSITIVE",
-				"private_key_pem":               "REDACTED_SENSITIVE",
-				"public_key_fingerprint_md5":    "6e:44:8c:e5:14:9a:89:9c:87:f0:03:6f:74:12:ee:37",
-				"public_key_fingerprint_sha256": "SHA256:hRxW4VRDUV1U/qpNfCvFLbvOBzKkIttoRVM3zj4+iKg",
-				"public_key_openssh":            "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQChlP6uLGu035vEutlq52erTPH0n9ZK95ymqm4kZfx0+8lGNmjP7UvvCsOPQoygTYShe4LNijDGb3p8zMzVTlZfZgitc1n8X3z/zT1UvtkO5LAeZVkp8WH5iKK0rnKm97KhSf+X7i+wkpezAZuvmr3S2kIvq4XonCVrhhYzMs48hbq6wT4Np2iu6HQInlSg7Q+M/JnsfHjbGLH3xK9BB4c3Tf1H/kTvZAbaaLTDAzfzM1hUFMhlTM+aolwsKdSfZvBvNvND0K3xTl7kSqrxzFiYZotYrZsPWgIob7CFcpmlvOYbsjfVoMtcywzAqCdyQqP+/mdcy202hsR+5wVV+hjT\n",
-				"public_key_pem":                "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoZT+rixrtN+bxLrZaudn\nq0zx9J/WSvecpqpuJGX8dPvJRjZoz+1L7wrDj0KMoE2EoXuCzYowxm96fMzM1U5W\nX2YIrXNZ/F98/809VL7ZDuSwHmVZKfFh+YiitK5ypveyoUn/l+4vsJKXswGbr5q9\n0tpCL6uF6Jwla4YWMzLOPIW6usE+Dadoruh0CJ5UoO0PjPyZ7Hx42xix98SvQQeH\nN039R/5E72QG2mi0wwM38zNYVBTIZUzPmqJcLCnUn2bwbzbzQ9Ct8U5e5Eqq8cxY\nmGaLWK2bD1oCKG+whXKZpbzmG7I31aDLXMsMwKgnckKj/v5nXMttNobEfucFVfoY\n0wIDAQAB\n-----END PUBLIC KEY-----\n",
-				"rsa_bits":                      2048,
+				"rsa_bits":    2048,
 			},
-			"after_unknown": {},
-			"before": {
-				"algorithm":   "RSA",
-				"ecdsa_curve": "P224",
-				"id":          "e14f06b5d55bbc45edf9d6c867f6e3b91acc6f8f",
-				"private_key_openssh":           "REDACTED_SENSITIVE",
-				"private_key_pem":               "REDACTED_SENSITIVE",
-				"public_key_fingerprint_md5":    "6e:44:8c:e5:14:9a:89:9c:87:f0:03:6f:74:12:ee:37",
-				"public_key_fingerprint_sha256": "SHA256:hRxW4VRDUV1U/qpNfCvFLbvOBzKkIttoRVM3zj4+iKg",
-				"public_key_openssh":            "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQChlP6uLGu035vEutlq52erTPH0n9ZK95ymqm4kZfx0+8lGNmjP7UvvCsOPQoygTYShe4LNijDGb3p8zMzVTlZfZgitc1n8X3z/zT1UvtkO5LAeZVkp8WH5iKK0rnKm97KhSf+X7i+wkpezAZuvmr3S2kIvq4XonCVrhhYzMs48hbq6wT4Np2iu6HQInlSg7Q+M/JnsfHjbGLH3xK9BB4c3Tf1H/kTvZAbaaLTDAzfzM1hUFMhlTM+aolwsKdSfZvBvNvND0K3xTl7kSqrxzFiYZotYrZsPWgIob7CFcpmlvOYbsjfVoMtcywzAqCdyQqP+/mdcy202hsR+5wVV+hjT\n",
-				"public_key_pem":                "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoZT+rixrtN+bxLrZaudn\nq0zx9J/WSvecpqpuJGX8dPvJRjZoz+1L7wrDj0KMoE2EoXuCzYowxm96fMzM1U5W\nX2YIrXNZ/F98/809VL7ZDuSwHmVZKfFh+YiitK5ypveyoUn/l+4vsJKXswGbr5q9\n0tpCL6uF6Jwla4YWMzLOPIW6usE+Dadoruh0CJ5UoO0PjPyZ7Hx42xix98SvQQeH\nN039R/5E72QG2mi0wwM38zNYVBTIZUzPmqJcLCnUn2bwbzbzQ9Ct8U5e5Eqq8cxY\nmGaLWK2bD1oCKG+whXKZpbzmG7I31aDLXMsMwKgnckKj/v5nXMttNobEfucFVfoY\n0wIDAQAB\n-----END PUBLIC KEY-----\n",
-				"rsa_bits":                      2048,
+			"after_unknown": {
+				"id": true,
+				"private_key_openssh":           true,
+				"private_key_pem":               true,
+				"public_key_fingerprint_md5":    true,
+				"public_key_fingerprint_sha256": true,
+				"public_key_openssh":            true,
+				"public_key_pem":                true,
 			},
+			"before": null,
 		},
 		"deposed":        "",
 		"index":          null,
@@ -670,45 +740,6 @@ resource_changes = {
 		"provider_name":  "registry.terraform.io/hashicorp/tls",
 		"type":           "tls_private_key",
 	},
-	"google_kms_crypto_key.cryptokey-2": {
-		    "address": "google_kms_crypto_key.cryptokey-2",
-		    "change": {
-			"actions": [
-				"create",
-			],
-			"after": {
-				"key_ring":                      "projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1",
-				"labels":                        null,
-				"name":                          "cryptokey-2",
-				"purpose":                       "ASYMMETRIC_SIGN",
-				"rotation_period":               null,
-				"skip_initial_version_creation": null,
-				"timeouts":                      null,
-				"version_template": [
-					{
-						"algorithm":        "RSA_PSS_2048_SHA256",
-						"protection_level": "SOFTWARE",
-					},
-				],
-			},
-			"after_unknown": {
-				"destroy_scheduled_duration": true,
-				"id":          true,
-				"import_only": true,
-				"version_template": [
-					{},
-				],
-			},
-			"before": null,
-		},
-		"deposed":        "",
-		"index":          null,
-		"mode":           "managed",
-		"module_address": "",
-		"name":           "cryptokey-2",
-		"provider_name":  "registry.terraform.io/hashicorp/google",
-		"type":           "google_kms_crypto_key",
-	  },
 }
 
 output_changes = {}
@@ -725,6 +756,35 @@ raw = {
 		},
 		"root_module": {
 			"resources": [
+				{
+					"address": "google_kms_crypto_key.cryptokey-2",
+					"expressions": {
+						"key_ring": {
+							"references": [
+								"data.google_kms_key_ring.keyring-1.id",
+								"data.google_kms_key_ring.keyring-1",
+							],
+						},
+						"name": {
+							"constant_value": "cryptokey-2",
+						},
+						"purpose": {
+							"constant_value": "ASYMMETRIC_SIGN",
+						},
+						"version_template": [
+							{
+								"algorithm": {
+									"constant_value": "RSA_SIGN_PSS_2048_SHA256",
+								},
+							},
+						],
+					},
+					"mode":                "managed",
+					"name":                "cryptokey-2",
+					"provider_config_key": "google",
+					"schema_version":      1,
+					"type":                "google_kms_crypto_key",
+				},
 				{
 					"address": "google_privateca_ca_pool.default",
 					"expressions": {
@@ -915,7 +975,13 @@ raw = {
 						"key_spec": [
 							{
 								"algorithm": {
-									"constant_value": "RSA_PKCS1_4096_SHA256",
+									"constant_value": "RSA_SIGN_PSS_2048_SHA256",
+								},
+								"cloud_kms_key_version": {
+									"references": [
+										"data.google_kms_crypto_key_version.crypto_key_version.name",
+										"data.google_kms_crypto_key_version.crypto_key_version",
+									],
 								},
 							},
 						],
@@ -983,6 +1049,41 @@ raw = {
 					"schema_version":      0,
 					"type":                "tls_private_key",
 				},
+				{
+					"address": "data.google_kms_crypto_key_version.crypto_key_version",
+					"expressions": {
+						"crypto_key": {
+							"references": [
+								"google_kms_crypto_key.cryptokey-2.id",
+								"google_kms_crypto_key.cryptokey-2",
+							],
+						},
+					},
+					"mode":                "data",
+					"name":                "crypto_key_version",
+					"provider_config_key": "google",
+					"schema_version":      0,
+					"type":                "google_kms_crypto_key_version",
+				},
+				{
+					"address": "data.google_kms_key_ring.keyring-1",
+					"expressions": {
+						"location": {
+							"constant_value": "us-central1",
+						},
+						"name": {
+							"constant_value": "keyring-1",
+						},
+						"project": {
+							"constant_value": "modular-scout-345114",
+						},
+					},
+					"mode":                "data",
+					"name":                "keyring-1",
+					"provider_config_key": "google",
+					"schema_version":      0,
+					"type":                "google_kms_key_ring",
+				},
 			],
 		},
 	},
@@ -990,6 +1091,48 @@ raw = {
 	"planned_values": {
 		"root_module": {
 			"resources": [
+				{
+					"address":        "data.google_kms_crypto_key_version.crypto_key_version",
+					"mode":           "data",
+					"name":           "crypto_key_version",
+					"provider_name":  "registry.terraform.io/hashicorp/google",
+					"schema_version": 0,
+					"sensitive_values": {
+						"public_key": [],
+					},
+					"type": "google_kms_crypto_key_version",
+					"values": {
+						"version": null,
+					},
+				},
+				{
+					"address":        "google_kms_crypto_key.cryptokey-2",
+					"mode":           "managed",
+					"name":           "cryptokey-2",
+					"provider_name":  "registry.terraform.io/hashicorp/google",
+					"schema_version": 1,
+					"sensitive_values": {
+						"version_template": [
+							{},
+						],
+					},
+					"type": "google_kms_crypto_key",
+					"values": {
+						"key_ring":                      "projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1",
+						"labels":                        null,
+						"name":                          "cryptokey-2",
+						"purpose":                       "ASYMMETRIC_SIGN",
+						"rotation_period":               null,
+						"skip_initial_version_creation": null,
+						"timeouts":                      null,
+						"version_template": [
+							{
+								"algorithm":        "RSA_SIGN_PSS_2048_SHA256",
+								"protection_level": "SOFTWARE",
+							},
+						],
+					},
+				},
 				{
 					"address":        "google_privateca_ca_pool.default",
 					"mode":           "managed",
@@ -1120,7 +1263,6 @@ raw = {
 						"lifetime":              "860s",
 						"location":              "us-central1",
 						"name":                  "my-certificate",
-						"pem_csr":               "-----BEGIN CERTIFICATE REQUEST-----\nMIICeDCCAWACAQAwMzEbMBkGA1UEChMSQUNNRSBFeGFtcGxlcywgSW5jMRQwEgYD\nVQQDEwtleGFtcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\nAKGU/q4sa7Tfm8S62WrnZ6tM8fSf1kr3nKaqbiRl/HT7yUY2aM/tS+8Kw49CjKBN\nhKF7gs2KMMZvenzMzNVOVl9mCK1zWfxffP/NPVS+2Q7ksB5lWSnxYfmIorSucqb3\nsqFJ/5fuL7CSl7MBm6+avdLaQi+rheicJWuGFjMyzjyFurrBPg2naK7odAieVKDt\nD4z8mex8eNsYsffEr0EHhzdN/Uf+RO9kBtpotMMDN/MzWFQUyGVMz5qiXCwp1J9m\n8G8280PQrfFOXuRKqvHMWJhmi1itmw9aAihvsIVymaW85huyN9Wgy1zLDMCoJ3JC\no/7+Z1zLbTaGxH7nBVX6GNMCAwEAAaAAMA0GCSqGSIb3DQEBCwUAA4IBAQB0PM4l\nUIFrlNmyb//XLk7lrD4+FGULViW1il0m2ImQ0ZnMgyN1mLi5HZalejCh/i0DRXVY\nGPRBFTDAmX6C+vha7I30RqGJla2lWe9zhPlrOA3c2U+gIMLhrov0sm/H4Z/oy84q\ndL4uiq4SJ8cSeHgLKoqvQ8RzEjbHepX2TDlWbba9INokY5Z0ijfmI0/rLbPkrRju\ngySybwPCN/Xg8MvBzw8lXvkY6xeFp/HxAz72jE3BCaJ3BYwn1+eGtoTJa8oDOfUt\n/qRuQkZpacy7dOsOHmc3TqCEX+g1GTJObXTWzKUcFrX5XsA3eUORooyQoV5Kvq67\navFYPKtYATiLdfhu\n-----END CERTIFICATE REQUEST-----\n",
 						"pool":                  "my-ca-pool-tf2",
 						"project":               "modular-scout-345114",
 						"timeouts":              null,
@@ -1244,8 +1386,7 @@ raw = {
 						"ignore_active_certificates_on_deletion": false,
 						"key_spec": [
 							{
-								"algorithm":             "RSA_PKCS1_4096_SHA256",
-								"cloud_kms_key_version": null,
+								"algorithm": "RSA_SIGN_PSS_2048_SHA256",
 							},
 						],
 						"labels":   null,
@@ -1266,30 +1407,25 @@ raw = {
 					"sensitive_values": {
 						"private_key_pem": true,
 						"subject": [
-							{
-								"street_address": [],
-							},
+							{},
 						],
 					},
 					"type": "tls_cert_request",
 					"values": {
-						"cert_request_pem": "-----BEGIN CERTIFICATE REQUEST-----\nMIICeDCCAWACAQAwMzEbMBkGA1UEChMSQUNNRSBFeGFtcGxlcywgSW5jMRQwEgYD\nVQQDEwtleGFtcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\nAKGU/q4sa7Tfm8S62WrnZ6tM8fSf1kr3nKaqbiRl/HT7yUY2aM/tS+8Kw49CjKBN\nhKF7gs2KMMZvenzMzNVOVl9mCK1zWfxffP/NPVS+2Q7ksB5lWSnxYfmIorSucqb3\nsqFJ/5fuL7CSl7MBm6+avdLaQi+rheicJWuGFjMyzjyFurrBPg2naK7odAieVKDt\nD4z8mex8eNsYsffEr0EHhzdN/Uf+RO9kBtpotMMDN/MzWFQUyGVMz5qiXCwp1J9m\n8G8280PQrfFOXuRKqvHMWJhmi1itmw9aAihvsIVymaW85huyN9Wgy1zLDMCoJ3JC\no/7+Z1zLbTaGxH7nBVX6GNMCAwEAAaAAMA0GCSqGSIb3DQEBCwUAA4IBAQB0PM4l\nUIFrlNmyb//XLk7lrD4+FGULViW1il0m2ImQ0ZnMgyN1mLi5HZalejCh/i0DRXVY\nGPRBFTDAmX6C+vha7I30RqGJla2lWe9zhPlrOA3c2U+gIMLhrov0sm/H4Z/oy84q\ndL4uiq4SJ8cSeHgLKoqvQ8RzEjbHepX2TDlWbba9INokY5Z0ijfmI0/rLbPkrRju\ngySybwPCN/Xg8MvBzw8lXvkY6xeFp/HxAz72jE3BCaJ3BYwn1+eGtoTJa8oDOfUt\n/qRuQkZpacy7dOsOHmc3TqCEX+g1GTJObXTWzKUcFrX5XsA3eUORooyQoV5Kvq67\navFYPKtYATiLdfhu\n-----END CERTIFICATE REQUEST-----\n",
-						"dns_names":        null,
-						"id":               "c4800115748422bc7429d528ce9d0450b24dd05e",
-						"ip_addresses":     null,
-						"key_algorithm":    "RSA",
-						"private_key_pem":  "REDACTED_SENSITIVE",
+						"dns_names":     null,
+						"ip_addresses":  null,
+						"key_algorithm": "RSA",
 						"subject": [
 							{
 								"common_name":         "example.com",
-								"country":             "",
-								"locality":            "",
+								"country":             null,
+								"locality":            null,
 								"organization":        "ACME Examples, Inc",
-								"organizational_unit": "",
-								"postal_code":         "",
-								"province":            "",
-								"serial_number":       "",
-								"street_address":      [],
+								"organizational_unit": null,
+								"postal_code":         null,
+								"province":            null,
+								"serial_number":       null,
+								"street_address":      null,
 							},
 						],
 						"uris": null,
@@ -1306,14 +1442,7 @@ raw = {
 					"values": {
 						"algorithm":   "RSA",
 						"ecdsa_curve": "P224",
-						"id":          "e14f06b5d55bbc45edf9d6c867f6e3b91acc6f8f",
-						"private_key_openssh":           "REDACTED_SENSITIVE",
-						"private_key_pem":               "REDACTED_SENSITIVE",
-						"public_key_fingerprint_md5":    "6e:44:8c:e5:14:9a:89:9c:87:f0:03:6f:74:12:ee:37",
-						"public_key_fingerprint_sha256": "SHA256:hRxW4VRDUV1U/qpNfCvFLbvOBzKkIttoRVM3zj4+iKg",
-						"public_key_openssh":            "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQChlP6uLGu035vEutlq52erTPH0n9ZK95ymqm4kZfx0+8lGNmjP7UvvCsOPQoygTYShe4LNijDGb3p8zMzVTlZfZgitc1n8X3z/zT1UvtkO5LAeZVkp8WH5iKK0rnKm97KhSf+X7i+wkpezAZuvmr3S2kIvq4XonCVrhhYzMs48hbq6wT4Np2iu6HQInlSg7Q+M/JnsfHjbGLH3xK9BB4c3Tf1H/kTvZAbaaLTDAzfzM1hUFMhlTM+aolwsKdSfZvBvNvND0K3xTl7kSqrxzFiYZotYrZsPWgIob7CFcpmlvOYbsjfVoMtcywzAqCdyQqP+/mdcy202hsR+5wVV+hjT\n",
-						"public_key_pem":                "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoZT+rixrtN+bxLrZaudn\nq0zx9J/WSvecpqpuJGX8dPvJRjZoz+1L7wrDj0KMoE2EoXuCzYowxm96fMzM1U5W\nX2YIrXNZ/F98/809VL7ZDuSwHmVZKfFh+YiitK5ypveyoUn/l+4vsJKXswGbr5q9\n0tpCL6uF6Jwla4YWMzLOPIW6usE+Dadoruh0CJ5UoO0PjPyZ7Hx42xix98SvQQeH\nN039R/5E72QG2mi0wwM38zNYVBTIZUzPmqJcLCnUn2bwbzbzQ9Ct8U5e5Eqq8cxY\nmGaLWK2bD1oCKG+whXKZpbzmG7I31aDLXMsMwKgnckKj/v5nXMttNobEfucFVfoY\n0wIDAQAB\n-----END PUBLIC KEY-----\n",
-						"rsa_bits":                      2048,
+						"rsa_bits":    2048,
 					},
 				},
 			],
@@ -1326,65 +1455,18 @@ raw = {
 			"root_module": {
 				"resources": [
 					{
-						"address": "tls_cert_request.example",
-						"depends_on": [
-							"tls_private_key.example",
-						],
-						"mode":           "managed",
-						"name":           "example",
-						"provider_name":  "registry.terraform.io/hashicorp/tls",
-						"schema_version": 0,
-						"sensitive_values": {
-							"private_key_pem": true,
-							"subject": [
-								{
-									"street_address": [],
-								},
-							],
-						},
-						"type": "tls_cert_request",
-						"values": {
-							"cert_request_pem": "-----BEGIN CERTIFICATE REQUEST-----\nMIICeDCCAWACAQAwMzEbMBkGA1UEChMSQUNNRSBFeGFtcGxlcywgSW5jMRQwEgYD\nVQQDEwtleGFtcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\nAKGU/q4sa7Tfm8S62WrnZ6tM8fSf1kr3nKaqbiRl/HT7yUY2aM/tS+8Kw49CjKBN\nhKF7gs2KMMZvenzMzNVOVl9mCK1zWfxffP/NPVS+2Q7ksB5lWSnxYfmIorSucqb3\nsqFJ/5fuL7CSl7MBm6+avdLaQi+rheicJWuGFjMyzjyFurrBPg2naK7odAieVKDt\nD4z8mex8eNsYsffEr0EHhzdN/Uf+RO9kBtpotMMDN/MzWFQUyGVMz5qiXCwp1J9m\n8G8280PQrfFOXuRKqvHMWJhmi1itmw9aAihvsIVymaW85huyN9Wgy1zLDMCoJ3JC\no/7+Z1zLbTaGxH7nBVX6GNMCAwEAAaAAMA0GCSqGSIb3DQEBCwUAA4IBAQB0PM4l\nUIFrlNmyb//XLk7lrD4+FGULViW1il0m2ImQ0ZnMgyN1mLi5HZalejCh/i0DRXVY\nGPRBFTDAmX6C+vha7I30RqGJla2lWe9zhPlrOA3c2U+gIMLhrov0sm/H4Z/oy84q\ndL4uiq4SJ8cSeHgLKoqvQ8RzEjbHepX2TDlWbba9INokY5Z0ijfmI0/rLbPkrRju\ngySybwPCN/Xg8MvBzw8lXvkY6xeFp/HxAz72jE3BCaJ3BYwn1+eGtoTJa8oDOfUt\n/qRuQkZpacy7dOsOHmc3TqCEX+g1GTJObXTWzKUcFrX5XsA3eUORooyQoV5Kvq67\navFYPKtYATiLdfhu\n-----END CERTIFICATE REQUEST-----\n",
-							"dns_names":        null,
-							"id":               "c4800115748422bc7429d528ce9d0450b24dd05e",
-							"ip_addresses":     null,
-							"key_algorithm":    "RSA",
-							"private_key_pem":  "REDACTED_SENSITIVE",
-							"subject": [
-								{
-									"common_name":         "example.com",
-									"country":             "",
-									"locality":            "",
-									"organization":        "ACME Examples, Inc",
-									"organizational_unit": "",
-									"postal_code":         "",
-									"province":            "",
-									"serial_number":       "",
-									"street_address":      [],
-								},
-							],
-							"uris": null,
-						},
-					},
-					{
-						"address":          "tls_private_key.example",
-						"mode":             "managed",
-						"name":             "example",
-						"provider_name":    "registry.terraform.io/hashicorp/tls",
+						"address":          "data.google_kms_key_ring.keyring-1",
+						"mode":             "data",
+						"name":             "keyring-1",
+						"provider_name":    "registry.terraform.io/hashicorp/google",
 						"schema_version":   0,
 						"sensitive_values": {},
-						"type":             "tls_private_key",
+						"type":             "google_kms_key_ring",
 						"values": {
-							"algorithm":   "RSA",
-							"ecdsa_curve": "P224",
-							"id":          "e14f06b5d55bbc45edf9d6c867f6e3b91acc6f8f",
-							"private_key_openssh":           "REDACTED_SENSITIVE",
-							"private_key_pem":               "REDACTED_SENSITIVE",
-							"public_key_fingerprint_md5":    "6e:44:8c:e5:14:9a:89:9c:87:f0:03:6f:74:12:ee:37",
-							"public_key_fingerprint_sha256": "SHA256:hRxW4VRDUV1U/qpNfCvFLbvOBzKkIttoRVM3zj4+iKg",
-							"public_key_openssh":            "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQChlP6uLGu035vEutlq52erTPH0n9ZK95ymqm4kZfx0+8lGNmjP7UvvCsOPQoygTYShe4LNijDGb3p8zMzVTlZfZgitc1n8X3z/zT1UvtkO5LAeZVkp8WH5iKK0rnKm97KhSf+X7i+wkpezAZuvmr3S2kIvq4XonCVrhhYzMs48hbq6wT4Np2iu6HQInlSg7Q+M/JnsfHjbGLH3xK9BB4c3Tf1H/kTvZAbaaLTDAzfzM1hUFMhlTM+aolwsKdSfZvBvNvND0K3xTl7kSqrxzFiYZotYrZsPWgIob7CFcpmlvOYbsjfVoMtcywzAqCdyQqP+/mdcy202hsR+5wVV+hjT\n",
-							"public_key_pem":                "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoZT+rixrtN+bxLrZaudn\nq0zx9J/WSvecpqpuJGX8dPvJRjZoz+1L7wrDj0KMoE2EoXuCzYowxm96fMzM1U5W\nX2YIrXNZ/F98/809VL7ZDuSwHmVZKfFh+YiitK5ypveyoUn/l+4vsJKXswGbr5q9\n0tpCL6uF6Jwla4YWMzLOPIW6usE+Dadoruh0CJ5UoO0PjPyZ7Hx42xix98SvQQeH\nN039R/5E72QG2mi0wwM38zNYVBTIZUzPmqJcLCnUn2bwbzbzQ9Ct8U5e5Eqq8cxY\nmGaLWK2bD1oCKG+whXKZpbzmG7I31aDLXMsMwKgnckKj/v5nXMttNobEfucFVfoY\n0wIDAQAB\n-----END PUBLIC KEY-----\n",
-							"rsa_bits":                      2048,
+							"id":       "projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1",
+							"location": "us-central1",
+							"name":     "keyring-1",
+							"project":  "modular-scout-345114",
 						},
 					},
 				],
@@ -1392,6 +1474,77 @@ raw = {
 		},
 	},
 	"resource_changes": [
+		{
+			"address": "data.google_kms_crypto_key_version.crypto_key_version",
+			"change": {
+				"actions": [
+					"read",
+				],
+				"after": {
+					"version": null,
+				},
+				"after_sensitive": {
+					"public_key": [],
+				},
+				"after_unknown": {
+					"algorithm":        true,
+					"crypto_key":       true,
+					"id":               true,
+					"name":             true,
+					"protection_level": true,
+					"public_key":       true,
+					"state":            true,
+				},
+				"before":           null,
+				"before_sensitive": false,
+			},
+			"mode":          "data",
+			"name":          "crypto_key_version",
+			"provider_name": "registry.terraform.io/hashicorp/google",
+			"type":          "google_kms_crypto_key_version",
+		},
+		{
+			"address": "google_kms_crypto_key.cryptokey-2",
+			"change": {
+				"actions": [
+					"create",
+				],
+				"after": {
+					"key_ring":                      "projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1",
+					"labels":                        null,
+					"name":                          "cryptokey-2",
+					"purpose":                       "ASYMMETRIC_SIGN",
+					"rotation_period":               null,
+					"skip_initial_version_creation": null,
+					"timeouts":                      null,
+					"version_template": [
+						{
+							"algorithm":        "RSA_SIGN_PSS_2048_SHA256",
+							"protection_level": "SOFTWARE",
+						},
+					],
+				},
+				"after_sensitive": {
+					"version_template": [
+						{},
+					],
+				},
+				"after_unknown": {
+					"destroy_scheduled_duration": true,
+					"id":          true,
+					"import_only": true,
+					"version_template": [
+						{},
+					],
+				},
+				"before":           null,
+				"before_sensitive": false,
+			},
+			"mode":          "managed",
+			"name":          "cryptokey-2",
+			"provider_name": "registry.terraform.io/hashicorp/google",
+			"type":          "google_kms_crypto_key",
+		},
 		{
 			"address": "google_privateca_ca_pool.default",
 			"change": {
@@ -1554,7 +1707,6 @@ raw = {
 					"lifetime":              "860s",
 					"location":              "us-central1",
 					"name":                  "my-certificate",
-					"pem_csr":               "-----BEGIN CERTIFICATE REQUEST-----\nMIICeDCCAWACAQAwMzEbMBkGA1UEChMSQUNNRSBFeGFtcGxlcywgSW5jMRQwEgYD\nVQQDEwtleGFtcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\nAKGU/q4sa7Tfm8S62WrnZ6tM8fSf1kr3nKaqbiRl/HT7yUY2aM/tS+8Kw49CjKBN\nhKF7gs2KMMZvenzMzNVOVl9mCK1zWfxffP/NPVS+2Q7ksB5lWSnxYfmIorSucqb3\nsqFJ/5fuL7CSl7MBm6+avdLaQi+rheicJWuGFjMyzjyFurrBPg2naK7odAieVKDt\nD4z8mex8eNsYsffEr0EHhzdN/Uf+RO9kBtpotMMDN/MzWFQUyGVMz5qiXCwp1J9m\n8G8280PQrfFOXuRKqvHMWJhmi1itmw9aAihvsIVymaW85huyN9Wgy1zLDMCoJ3JC\no/7+Z1zLbTaGxH7nBVX6GNMCAwEAAaAAMA0GCSqGSIb3DQEBCwUAA4IBAQB0PM4l\nUIFrlNmyb//XLk7lrD4+FGULViW1il0m2ImQ0ZnMgyN1mLi5HZalejCh/i0DRXVY\nGPRBFTDAmX6C+vha7I30RqGJla2lWe9zhPlrOA3c2U+gIMLhrov0sm/H4Z/oy84q\ndL4uiq4SJ8cSeHgLKoqvQ8RzEjbHepX2TDlWbba9INokY5Z0ijfmI0/rLbPkrRju\ngySybwPCN/Xg8MvBzw8lXvkY6xeFp/HxAz72jE3BCaJ3BYwn1+eGtoTJa8oDOfUt\n/qRuQkZpacy7dOsOHmc3TqCEX+g1GTJObXTWzKUcFrX5XsA3eUORooyQoV5Kvq67\navFYPKtYATiLdfhu\n-----END CERTIFICATE REQUEST-----\n",
 					"pool":                  "my-ca-pool-tf2",
 					"project":               "modular-scout-345114",
 					"timeouts":              null,
@@ -1575,6 +1727,7 @@ raw = {
 					"pem_certificate":              true,
 					"pem_certificate_chain":        true,
 					"pem_certificates":             true,
+					"pem_csr":                      true,
 					"revocation_details":           true,
 					"update_time":                  true,
 				},
@@ -1664,8 +1817,7 @@ raw = {
 					"ignore_active_certificates_on_deletion": false,
 					"key_spec": [
 						{
-							"algorithm":             "RSA_PKCS1_4096_SHA256",
-							"cloud_kms_key_version": null,
+							"algorithm": "RSA_SIGN_PSS_2048_SHA256",
 						},
 					],
 					"labels":   null,
@@ -1752,7 +1904,9 @@ raw = {
 					"create_time": true,
 					"id":          true,
 					"key_spec": [
-						{},
+						{
+							"cloud_kms_key_version": true,
+						},
 					],
 					"name":                true,
 					"pem_ca_certificates": true,
@@ -1771,26 +1925,23 @@ raw = {
 			"address": "tls_cert_request.example",
 			"change": {
 				"actions": [
-					"no-op",
+					"create",
 				],
 				"after": {
-					"cert_request_pem": "-----BEGIN CERTIFICATE REQUEST-----\nMIICeDCCAWACAQAwMzEbMBkGA1UEChMSQUNNRSBFeGFtcGxlcywgSW5jMRQwEgYD\nVQQDEwtleGFtcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\nAKGU/q4sa7Tfm8S62WrnZ6tM8fSf1kr3nKaqbiRl/HT7yUY2aM/tS+8Kw49CjKBN\nhKF7gs2KMMZvenzMzNVOVl9mCK1zWfxffP/NPVS+2Q7ksB5lWSnxYfmIorSucqb3\nsqFJ/5fuL7CSl7MBm6+avdLaQi+rheicJWuGFjMyzjyFurrBPg2naK7odAieVKDt\nD4z8mex8eNsYsffEr0EHhzdN/Uf+RO9kBtpotMMDN/MzWFQUyGVMz5qiXCwp1J9m\n8G8280PQrfFOXuRKqvHMWJhmi1itmw9aAihvsIVymaW85huyN9Wgy1zLDMCoJ3JC\no/7+Z1zLbTaGxH7nBVX6GNMCAwEAAaAAMA0GCSqGSIb3DQEBCwUAA4IBAQB0PM4l\nUIFrlNmyb//XLk7lrD4+FGULViW1il0m2ImQ0ZnMgyN1mLi5HZalejCh/i0DRXVY\nGPRBFTDAmX6C+vha7I30RqGJla2lWe9zhPlrOA3c2U+gIMLhrov0sm/H4Z/oy84q\ndL4uiq4SJ8cSeHgLKoqvQ8RzEjbHepX2TDlWbba9INokY5Z0ijfmI0/rLbPkrRju\ngySybwPCN/Xg8MvBzw8lXvkY6xeFp/HxAz72jE3BCaJ3BYwn1+eGtoTJa8oDOfUt\n/qRuQkZpacy7dOsOHmc3TqCEX+g1GTJObXTWzKUcFrX5XsA3eUORooyQoV5Kvq67\navFYPKtYATiLdfhu\n-----END CERTIFICATE REQUEST-----\n",
-					"dns_names":        null,
-					"id":               "c4800115748422bc7429d528ce9d0450b24dd05e",
-					"ip_addresses":     null,
-					"key_algorithm":    "RSA",
-					"private_key_pem":  "REDACTED_SENSITIVE",
+					"dns_names":     null,
+					"ip_addresses":  null,
+					"key_algorithm": "RSA",
 					"subject": [
 						{
 							"common_name":         "example.com",
-							"country":             "",
-							"locality":            "",
+							"country":             null,
+							"locality":            null,
 							"organization":        "ACME Examples, Inc",
-							"organizational_unit": "",
-							"postal_code":         "",
-							"province":            "",
-							"serial_number":       "",
-							"street_address":      [],
+							"organizational_unit": null,
+							"postal_code":         null,
+							"province":            null,
+							"serial_number":       null,
+							"street_address":      null,
 						},
 					],
 					"uris": null,
@@ -1798,42 +1949,19 @@ raw = {
 				"after_sensitive": {
 					"private_key_pem": true,
 					"subject": [
-						{
-							"street_address": [],
-						},
+						{},
 					],
 				},
-				"after_unknown": {},
-				"before": {
-					"cert_request_pem": "-----BEGIN CERTIFICATE REQUEST-----\nMIICeDCCAWACAQAwMzEbMBkGA1UEChMSQUNNRSBFeGFtcGxlcywgSW5jMRQwEgYD\nVQQDEwtleGFtcGxlLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEB\nAKGU/q4sa7Tfm8S62WrnZ6tM8fSf1kr3nKaqbiRl/HT7yUY2aM/tS+8Kw49CjKBN\nhKF7gs2KMMZvenzMzNVOVl9mCK1zWfxffP/NPVS+2Q7ksB5lWSnxYfmIorSucqb3\nsqFJ/5fuL7CSl7MBm6+avdLaQi+rheicJWuGFjMyzjyFurrBPg2naK7odAieVKDt\nD4z8mex8eNsYsffEr0EHhzdN/Uf+RO9kBtpotMMDN/MzWFQUyGVMz5qiXCwp1J9m\n8G8280PQrfFOXuRKqvHMWJhmi1itmw9aAihvsIVymaW85huyN9Wgy1zLDMCoJ3JC\no/7+Z1zLbTaGxH7nBVX6GNMCAwEAAaAAMA0GCSqGSIb3DQEBCwUAA4IBAQB0PM4l\nUIFrlNmyb//XLk7lrD4+FGULViW1il0m2ImQ0ZnMgyN1mLi5HZalejCh/i0DRXVY\nGPRBFTDAmX6C+vha7I30RqGJla2lWe9zhPlrOA3c2U+gIMLhrov0sm/H4Z/oy84q\ndL4uiq4SJ8cSeHgLKoqvQ8RzEjbHepX2TDlWbba9INokY5Z0ijfmI0/rLbPkrRju\ngySybwPCN/Xg8MvBzw8lXvkY6xeFp/HxAz72jE3BCaJ3BYwn1+eGtoTJa8oDOfUt\n/qRuQkZpacy7dOsOHmc3TqCEX+g1GTJObXTWzKUcFrX5XsA3eUORooyQoV5Kvq67\navFYPKtYATiLdfhu\n-----END CERTIFICATE REQUEST-----\n",
-					"dns_names":        null,
-					"id":               "c4800115748422bc7429d528ce9d0450b24dd05e",
-					"ip_addresses":     null,
-					"key_algorithm":    "RSA",
-					"private_key_pem":  "REDACTED_SENSITIVE",
+				"after_unknown": {
+					"cert_request_pem": true,
+					"id":               true,
+					"private_key_pem":  true,
 					"subject": [
-						{
-							"common_name":         "example.com",
-							"country":             "",
-							"locality":            "",
-							"organization":        "ACME Examples, Inc",
-							"organizational_unit": "",
-							"postal_code":         "",
-							"province":            "",
-							"serial_number":       "",
-							"street_address":      [],
-						},
-					],
-					"uris": null,
-				},
-				"before_sensitive": {
-					"private_key_pem": true,
-					"subject": [
-						{
-							"street_address": [],
-						},
+						{},
 					],
 				},
+				"before":           null,
+				"before_sensitive": false,
 			},
 			"mode":          "managed",
 			"name":          "example",
@@ -1844,41 +1972,28 @@ raw = {
 			"address": "tls_private_key.example",
 			"change": {
 				"actions": [
-					"no-op",
+					"create",
 				],
 				"after": {
 					"algorithm":   "RSA",
 					"ecdsa_curve": "P224",
-					"id":          "e14f06b5d55bbc45edf9d6c867f6e3b91acc6f8f",
-					"private_key_openssh":           "REDACTED_SENSITIVE",
-					"private_key_pem":               "REDACTED_SENSITIVE",
-					"public_key_fingerprint_md5":    "6e:44:8c:e5:14:9a:89:9c:87:f0:03:6f:74:12:ee:37",
-					"public_key_fingerprint_sha256": "SHA256:hRxW4VRDUV1U/qpNfCvFLbvOBzKkIttoRVM3zj4+iKg",
-					"public_key_openssh":            "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQChlP6uLGu035vEutlq52erTPH0n9ZK95ymqm4kZfx0+8lGNmjP7UvvCsOPQoygTYShe4LNijDGb3p8zMzVTlZfZgitc1n8X3z/zT1UvtkO5LAeZVkp8WH5iKK0rnKm97KhSf+X7i+wkpezAZuvmr3S2kIvq4XonCVrhhYzMs48hbq6wT4Np2iu6HQInlSg7Q+M/JnsfHjbGLH3xK9BB4c3Tf1H/kTvZAbaaLTDAzfzM1hUFMhlTM+aolwsKdSfZvBvNvND0K3xTl7kSqrxzFiYZotYrZsPWgIob7CFcpmlvOYbsjfVoMtcywzAqCdyQqP+/mdcy202hsR+5wVV+hjT\n",
-					"public_key_pem":                "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoZT+rixrtN+bxLrZaudn\nq0zx9J/WSvecpqpuJGX8dPvJRjZoz+1L7wrDj0KMoE2EoXuCzYowxm96fMzM1U5W\nX2YIrXNZ/F98/809VL7ZDuSwHmVZKfFh+YiitK5ypveyoUn/l+4vsJKXswGbr5q9\n0tpCL6uF6Jwla4YWMzLOPIW6usE+Dadoruh0CJ5UoO0PjPyZ7Hx42xix98SvQQeH\nN039R/5E72QG2mi0wwM38zNYVBTIZUzPmqJcLCnUn2bwbzbzQ9Ct8U5e5Eqq8cxY\nmGaLWK2bD1oCKG+whXKZpbzmG7I31aDLXMsMwKgnckKj/v5nXMttNobEfucFVfoY\n0wIDAQAB\n-----END PUBLIC KEY-----\n",
-					"rsa_bits":                      2048,
+					"rsa_bits":    2048,
 				},
 				"after_sensitive": {
 					"private_key_openssh": true,
 					"private_key_pem":     true,
 				},
-				"after_unknown": {},
-				"before": {
-					"algorithm":   "RSA",
-					"ecdsa_curve": "P224",
-					"id":          "e14f06b5d55bbc45edf9d6c867f6e3b91acc6f8f",
-					"private_key_openssh":           "REDACTED_SENSITIVE",
-					"private_key_pem":               "REDACTED_SENSITIVE",
-					"public_key_fingerprint_md5":    "6e:44:8c:e5:14:9a:89:9c:87:f0:03:6f:74:12:ee:37",
-					"public_key_fingerprint_sha256": "SHA256:hRxW4VRDUV1U/qpNfCvFLbvOBzKkIttoRVM3zj4+iKg",
-					"public_key_openssh":            "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQChlP6uLGu035vEutlq52erTPH0n9ZK95ymqm4kZfx0+8lGNmjP7UvvCsOPQoygTYShe4LNijDGb3p8zMzVTlZfZgitc1n8X3z/zT1UvtkO5LAeZVkp8WH5iKK0rnKm97KhSf+X7i+wkpezAZuvmr3S2kIvq4XonCVrhhYzMs48hbq6wT4Np2iu6HQInlSg7Q+M/JnsfHjbGLH3xK9BB4c3Tf1H/kTvZAbaaLTDAzfzM1hUFMhlTM+aolwsKdSfZvBvNvND0K3xTl7kSqrxzFiYZotYrZsPWgIob7CFcpmlvOYbsjfVoMtcywzAqCdyQqP+/mdcy202hsR+5wVV+hjT\n",
-					"public_key_pem":                "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAoZT+rixrtN+bxLrZaudn\nq0zx9J/WSvecpqpuJGX8dPvJRjZoz+1L7wrDj0KMoE2EoXuCzYowxm96fMzM1U5W\nX2YIrXNZ/F98/809VL7ZDuSwHmVZKfFh+YiitK5ypveyoUn/l+4vsJKXswGbr5q9\n0tpCL6uF6Jwla4YWMzLOPIW6usE+Dadoruh0CJ5UoO0PjPyZ7Hx42xix98SvQQeH\nN039R/5E72QG2mi0wwM38zNYVBTIZUzPmqJcLCnUn2bwbzbzQ9Ct8U5e5Eqq8cxY\nmGaLWK2bD1oCKG+whXKZpbzmG7I31aDLXMsMwKgnckKj/v5nXMttNobEfucFVfoY\n0wIDAQAB\n-----END PUBLIC KEY-----\n",
-					"rsa_bits":                      2048,
+				"after_unknown": {
+					"id": true,
+					"private_key_openssh":           true,
+					"private_key_pem":               true,
+					"public_key_fingerprint_md5":    true,
+					"public_key_fingerprint_sha256": true,
+					"public_key_openssh":            true,
+					"public_key_pem":                true,
 				},
-				"before_sensitive": {
-					"private_key_openssh": true,
-					"private_key_pem":     true,
-				},
+				"before":           null,
+				"before_sensitive": false,
 			},
 			"mode":          "managed",
 			"name":          "example",

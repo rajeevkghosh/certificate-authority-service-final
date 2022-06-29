@@ -11,11 +11,6 @@ module "tfstate-functions" {
     source = "./tfstate-functions.sentinel"
 }
 
-/*mock "tfstate/v2" {
-  module {
-    source = "mock7-29June/mock-tfstate-v2.sentinel"
-  }
-}*/
 mock "tfstate/v2" {
   module {
     source = "mock-post-apply/mock-tfstate-v2-modified.sentinel"

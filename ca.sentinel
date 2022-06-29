@@ -81,7 +81,36 @@ print("  ")
 messages = {}
 for allCertAuthorityInstances as address, rc {
 
-    if b == "ENTERPRISE" {
+    if b == "	" {
+    ca_private_kms_key_version = plan.evaluate_attribute(rc, "key_spec.0.cloud_kms_key_version")
+	print("ca_private_kms_key_version is ", ca_private_kms_key_version)
+	if (types.type_of(ca_private_kms_key_version) is "undefined") or (types.type_of(ca_private_kms_key_version) is "null") or (length(ca_private_kms_key_version) == 0) {
+		messages[address] = rc
+		print("The value for ca_private_kms_key_version in Resource " + address + " can't be null or undefined or empty string")
+	} else {
+		cryptoKeyVersionlist = strings.split(ca_private_kms_key_version, "/")
+		if length(cryptoKeyVersionlist) > 1 {
+			if not (cryptoKeyVersionlist[0] == "projects" and cryptoKeyVersionlist[2] == "locations" and cryptoKeyVersionlist[4] == "keyRings" and cryptoKeyVersionlist[6] == "cryptoKeys" and cryptoKeyVersionlist[8] == "cryptoKeyVersions") {
+				messages[address] = rc
+				print("CryptoKeyVersion must be in the format projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*")
+			}
+		} else {
+			messages[address] = rc
+			print("CryptoKeyVersion must be in the format projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*")
+		}
+	}
+    }
+}
+GCP_CAS_CACMEK = rule { length(messages) is 0 }
+
+
+#######################################################
+####----------------DevOps Rule--------------------####
+#######################################################
+messages_devops = {}
+for allCertAuthorityInstances as address, rc {
+
+    if b == "DEVOPS" {
     ca_private_kms_key_version = plan.evaluate_attribute(rc, "key_spec.0.cloud_kms_key_version")
 	print("ca_private_kms_key_version is ", ca_private_kms_key_version)
 	if (types.type_of(ca_private_kms_key_version) is "undefined") or (types.type_of(ca_private_kms_key_version) is "null") or (length(ca_private_kms_key_version) == 0) {

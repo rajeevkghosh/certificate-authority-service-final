@@ -1,0 +1,106 @@
+import "strings"
+import "types"
+
+outputs = {}
+
+_modules = {
+	"root": {
+		"data": {
+			"google_kms_crypto_key": {
+				"cryptokey-2": {
+					0: {
+						"attr": {
+							"destroy_scheduled_duration": "86400s",
+							"id":                            "projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1/cryptoKeys/cryptokey-2",
+							"import_only":                   false,
+							"key_ring":                      "projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1",
+							"labels":                        {},
+							"name":                          "cryptokey-2",
+							"purpose":                       "ASYMMETRIC_SIGN",
+							"rotation_period":               "",
+							"skip_initial_version_creation": null,
+							"version_template": [
+								{
+									"algorithm":        "RSA_SIGN_PSS_2048_SHA256",
+									"protection_level": "SOFTWARE",
+								},
+							],
+						},
+						"depends_on": [],
+						"id":         "projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1/cryptoKeys/cryptokey-2",
+						"tainted":    false,
+					},
+				},
+			},
+			"google_kms_crypto_key_version": {
+				"crypto_key_version": {
+					0: {
+						"attr": {
+							"algorithm":        "RSA_SIGN_PSS_2048_SHA256",
+							"crypto_key":       "projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1/cryptoKeys/cryptokey-2",
+							"id":               "//cloudkms.googleapis.com/v1/projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1/cryptoKeys/cryptokey-2/cryptoKeyVersions/1",
+							"name":             "projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1/cryptoKeys/cryptokey-2/cryptoKeyVersions/1",
+							"protection_level": "SOFTWARE",
+							"public_key": [
+								{
+									"algorithm": "RSA_SIGN_PSS_2048_SHA256",
+									"pem":       "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAq6hokVGR3q8L1kF0DI0F\n+pgSD0arKBvEi4qaGzxvz1/LVpo8Gm68MjqPGoYY0dAugcPDXFwN/qxQcbLenH/v\nTBEtN7PPbucufBp4PlvsOfJ7Ji9nwOfCtbOjwOEp7ItlgtWRDandR0tgpLR+fgmo\nymCP39bttk6h1WEkqs0ge1Ks58DF+IqHSe3m563soMvs2jTEe8vwpu/g/5qw0njs\npHN5dAjDhB6sSfhYaGZMKdfeXwBUDzlNvOnoMXLx+Z7cyl4zjOqgQqr8eRmyQBdT\n+z5ZWh3DvrzzetrHExTsU5CC9C/cHsBVzz9crSW3WX28ka3A+d+HuFntbfEXpnap\naQIDAQAB\n-----END PUBLIC KEY-----\n",
+								},
+							],
+							"state":   "ENABLED",
+							"version": 1,
+						},
+						"depends_on": [],
+						"id":         "//cloudkms.googleapis.com/v1/projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1/cryptoKeys/cryptokey-2/cryptoKeyVersions/1",
+						"tainted":    false,
+					},
+				},
+			},
+			"google_kms_key_ring": {
+				"keyring-1": {
+					0: {
+						"attr": {
+							"id":       "projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1",
+							"location": "us-central1",
+							"name":     "keyring-1",
+							"project":  "modular-scout-345114",
+						},
+						"depends_on": [],
+						"id":         "projects/modular-scout-345114/locations/us-central1/keyRings/keyring-1",
+						"tainted":    false,
+					},
+				},
+			},
+		},
+		"path":      [],
+		"resources": {},
+	},
+}
+
+module_paths = [
+	[],
+]
+
+terraform_version = "1.2.3"
+
+module = func(path) {
+	if types.type_of(path) is not "list" {
+		error("expected list, got", types.type_of(path))
+	}
+
+	if length(path) < 1 {
+		return _modules.root
+	}
+
+	addr = []
+	for path as p {
+		append(addr, "module")
+		append(addr, p)
+	}
+
+	return _modules[strings.join(addr, ".")]
+}
+
+data = _modules.root.data
+path = _modules.root.path
+resources = _modules.root.resources
