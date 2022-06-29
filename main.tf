@@ -88,7 +88,7 @@ resource "google_privateca_certificate_authority" "test-ca2" {
 
 resource "google_privateca_certificate" "default" {
   pool = google_privateca_ca_pool.default.name
-  certificate_authority = google_privateca_certificate_authority.test-ca.certificate_authority_id
+  certificate_authority = google_privateca_certificate_authority.test-ca2.certificate_authority_id
   project = "modular-scout-345114"
   location = "us-central1"
   lifetime = "860s"
