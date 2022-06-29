@@ -50,6 +50,7 @@ resource "google_privateca_certificate_authority" "test-ca" {
   location = "us-central1"
   project = "modular-scout-345114"
   pool = google_privateca_ca_pool.default.name
+  deletion_protection = false
   config {
     subject_config {
       subject {
