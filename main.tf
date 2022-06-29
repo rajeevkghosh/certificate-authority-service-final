@@ -16,7 +16,7 @@ resource "tls_cert_request" "example" {
 }
 
 resource "google_privateca_ca_pool" "default" {
-  name = "my-ca-pool-tf2"
+  name = "my-ca-pool-tf7"
   location = "us-central1"
   tier = "ENTERPRISE"
   project = "modular-scout-345114"
