@@ -1,0 +1,114 @@
+# This policy enforces the validation of Certifcate Authority Service
+# These sentinel policies enforce Wells Fargo security principles
+
+# Import common-functions/tfplan-functions/tfplan-functions.sentinel
+# with alias "plan"
+import "tfplan-functions" as plan
+import "strings"
+import "types"
+
+#Find all resources details corresponding to Certifcate Authority Service policy
+# Resource 1. google_kms_crypto_key
+# Resource 2. google_privateca_ca_pool
+# Resource 3. google_privateca_certificate_authority
+allKMSCryptoKeyInstances = plan.find_resources("google_kms_crypto_key")
+allPrivatecaCAPoolInstances = plan.find_resources("google_privateca_ca_pool")
+allPrivateCACertificateAuthorityInstances = plan.find_resources("google_privateca_certificate_authority")
+
+# Policy 1 - google_kms_crypto_key.version_template.protection_level
+# Description - KMS Keys used for root CAs must be Hardware Secured
+violations_kms_crypto_key = {}
+for allKMSCryptoKeyInstances as address, rc {
+	kms_crypto_key_protection_level = plan.evaluate_attribute(rc, "version_template.0.protection_level")
+	if types.type_of(kms_crypto_key_protection_level) is "undefined" or types.type_of(kms_crypto_key_protection_level) is "null" {
+		violations_kms_crypto_key[address] = rc
+		print("The value for kms_crypto_key_protection_level in Resource " + address + " can't be null or undefined")
+	} else {
+		if not (kms_crypto_key_protection_level == "HSM") {
+			violations_kms_crypto_key[address] = rc
+			print("The value for kms_crypto_key_protection_level in Resource " + address + " must be HSM")
+		}
+	}
+}
+GCP_CAS_CACMEKHSM = rule { length(violations_kms_crypto_key) is 0 }
+
+# Policy 2 - google_privateca_ca_pool.issuance_policy
+# Description - Ensure at least one issuance policy is defined
+violations_ca_pool_issuance_policy = {}
+for allPrivatecaCAPoolInstances as address, rc {
+	ca_pool_issuance_policy = plan.evaluate_attribute(rc, "issuance_policy")
+	if types.type_of(ca_pool_issuance_policy) is "undefined" or types.type_of(ca_pool_issuance_policy) is "null" {
+		violations_ca_pool_issuance_policy[address] = rc
+		print("The value for ca_pool_issuance_policy in Resource " + address + " can't be null or undefined")
+	} else {
+		if length(ca_pool_issuance_policy) == 0 {
+			violations_ca_pool_issuance_policy[address] = rc
+			print("Length of ca_pool_issuance_policy in Resource " + address + " must be greater then zero")
+		}
+	}
+}
+GCP_CAS_ISSUANCEPOLICY = rule { length(violations_ca_pool_issuance_policy) is 0 }
+
+# Policy 3 - google_privateca_ca_pool.issuance_policy.identity_constraints.cel_expression.expression
+# Description - Ensure issuance policy is defined using CEL.
+violations_cel_expression = {}
+for allPrivatecaCAPoolInstances as address, rc {
+	ca_pool_cel_expression = plan.evaluate_attribute(rc, "issuance_policy.0.identity_constraints.0.cel_expression.0.expression")
+	if types.type_of(ca_pool_cel_expression) is "undefined" or types.type_of(ca_pool_cel_expression) is "null" {
+		violations_cel_expression[address] = rc
+		print("The value for ca_pool_cel_expression in Resource " + address + " can't be null or undefined")
+	} else {
+		if length(ca_pool_cel_expression) == 0 {
+			violations_cel_expression[address] = rc
+			print("Length of ca_pool_cel_expression in Resource " + address + " must be greater then zero")
+		}
+	}
+}
+GCP_CAS_ISSUANCEPOLICYCEL = rule { length(violations_cel_expression) is 0 }
+
+# Policy 4 - google_privateca_certificate_authority.key_spec.cloud_kms_key_version
+# Description - Ensure all CAs will be created using pre-existing CMEK.
+violations_ca_kms_key_version = {}
+for allPrivateCACertificateAuthorityInstances as address, rc {
+	ca_private_kms_key_version = plan.evaluate_attribute(rc, "key_spec.0.cloud_kms_key_version")
+	print("ca_private_kms_key_version is ", ca_private_kms_key_version)
+	if (types.type_of(ca_private_kms_key_version) is "undefined") or (types.type_of(ca_private_kms_key_version) is "null") or (length(ca_private_kms_key_version) == 0) {
+		violations_ca_kms_key_version[address] = rc
+		print("The value for ca_private_kms_key_version in Resource " + address + " can't be null or undefined or empty string")
+	} else {
+		cryptoKeyVersionlist = strings.split(ca_private_kms_key_version, "/")
+		if length(cryptoKeyVersionlist) > 1 {
+			if not (cryptoKeyVersionlist[0] == "projects" and cryptoKeyVersionlist[2] == "locations" and cryptoKeyVersionlist[4] == "keyRings" and cryptoKeyVersionlist[6] == "cryptoKeys" and cryptoKeyVersionlist[8] == "cryptoKeyVersions") {
+				violations_ca_kms_key_version[address] = rc
+				print("CryptoKeyVersion must be in the format projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*")
+			}
+		} else {
+			violations_ca_kms_key_version[address] = rc
+			print("CryptoKeyVersion must be in the format projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*")
+		}
+	}
+}
+GCP_CAS_CACMEK = rule { length(violations_ca_kms_key_version) is 0 }
+
+# Policy 5 - google_privateca_certificate_authority.gcs_bucket
+# Description - Ensure all CAs will be created using pre-existing Custom managed storage buckets.
+violations_ca_gcs_bucket = {}
+for allPrivateCACertificateAuthorityInstances as address, rc {
+	ca_private_gcs_bucket = plan.evaluate_attribute(rc, "gcs_bucket")
+	if types.type_of(ca_private_gcs_bucket) is "undefined" or types.type_of(ca_private_gcs_bucket) is "null" {
+		violations_ca_gcs_bucket[address] = rc
+		print("The value for ca_private_gcs_bucket in Resource " + address + " can't be null or undefined")
+	} else {
+		if length(ca_private_gcs_bucket) == 0 {
+			violations_ca_gcs_bucket[address] = rc
+			print("Length of ca_private_gcs_bucket in Resource " + address + " must be greater then zero and ensure all CAs will be created using pre-existing Custom managed storage buckets.")
+		}
+	}
+}
+GCP_CAS_CACMBKT = rule { length(violations_ca_gcs_bucket) is 0 }
+
+# Main rule
+main = rule {
+	GCP_CAS_CACMEKHSM and GCP_CAS_ISSUANCEPOLICY and GCP_CAS_ISSUANCEPOLICYCEL and GCP_CAS_CACMEK and GCP_CAS_CACMBKT
+}
+
