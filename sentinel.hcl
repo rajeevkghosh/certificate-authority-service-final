@@ -1,6 +1,6 @@
 mock "tfplan/v2" {
   module {
-    source = "mock-pre-apply/mock-tfplan-v2-modified.sentinel"
+    source = "./mock-tfplan-v2-modified.sentinel"
   }
 }
 module "tfplan-functions" {
@@ -11,13 +11,8 @@ module "tfstate-functions" {
     source = "./tfstate-functions.sentinel"
 }
 
-/*mock "tfstate/v2" {
-  module {
-    source = "mock7-29June/mock-tfstate-v2.sentinel"
-  }
-}*/
 mock "tfstate/v2" {
   module {
-    source = "mock-post-apply/mock-tfstate-v2-modified.sentinel"
+    source = "./mock-tfstate-v2-modified.sentinel"
   }
 }

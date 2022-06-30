@@ -21,42 +21,29 @@ array = {}
 for allCAPoolTfstateInstances as address, rc {
 	capoolname = tfstate.evaluate_attribute(rc, "name")
 	capooltier = tfstate.evaluate_attribute(rc, "tier")
-	//print(capoolname)
-	//print(capooltier)
-
 	array[capoolname] = capooltier
-
 }
+
 print("-----Tfstate Map------")
 print(array)
-print("  ")
 
-//print("---------------")
 array2 = {}
 for allCAPoolTfplanInstances as address, rc {
 	cpool_name = plan.evaluate_attribute(rc, "name")
 	cpool_tier = plan.evaluate_attribute(rc, "tier")
-
-	//print(cpool_name)
-	//print(cpool_tier)
 	array2[cpool_name] = cpool_tier
 
 }
 print("-----TFPlan Map--------")
 print(array2)
-print("  ")
 
 array_main = {}
 
 for array as address, rc {
-	//print(address)
-	//print(rc)
 	array_main[address] = rc
 }
 
 for array2 as address, rc {
-	//print(address)
-	//print(rc)
 	array_main[address] = rc
 }
 
@@ -72,18 +59,16 @@ for allCertAuthorityInstances as address, rc {
 	c = cert_pool_name
 }
 print("  ")
-print("  ")
 print("pool name:---> " + c)
 print("pool tier:---> " + b)
 print("  ")
-print("  ")
 
+#print (types.type_of(b))
 #######################################################
 ####--------------Enterprise Rule-1-----------------####
 #######################################################
-
-if b == "ENTERPRISE" {
-	messages = {}
+messages = {}
+if (not (types.type_of(b) is "undefined") and b == "ENTERPRISE") {
 	for allCertAuthorityInstances as address, rc {
 
 		ca_private_kms_key_version = plan.evaluate_attribute(rc, "key_spec.0.cloud_kms_key_version")
@@ -104,6 +89,10 @@ if b == "ENTERPRISE" {
 			}
 		}
 	}
+} else {
+
+	messages = "CA Pool Tier Couldn't be Found"
+	print("CA Pool Tier Couldn't be Found")
 }
 GCP_CAS_CACMEK = rule { length(messages) is 0 }
 
@@ -121,7 +110,7 @@ find_resources = func(type) {
 	return resources
 }
 
-allCryptoKeyTfstateInstances = find_resources("google_kms_crypto_key")
+allCryptoKeyTfstateInstances = find_resources("google_kms_crypto_key2")
 
 //print(allCryptoKeyTfstateInstances)
 
@@ -147,20 +136,16 @@ print(array_tfplan_cryptokey)
 array_cryptokey_main = {}
 
 for array_tfstate_cryptokey as address, rc {
-	//print(address)
-	//print(rc)
 	array_cryptokey_main[address] = rc
 }
 for array_tfplan_cryptokey as address, rc {
-	//print(address)
-	//print(rc)
 	array_cryptokey_main[address] = rc
 }
 
 print(array_cryptokey_main)
 
-if b == "ENTERPRISE" {
-	messages_algorithm = {}
+messages_algorithm = {}
+if (not (types.type_of(b) is "undefined") and b == "ENTERPRISE") {
 	for allCertAuthorityInstances as address, rc {
 
 		kms_key_version = plan.evaluate_attribute(rc, "key_spec.0.cloud_kms_key_version")
@@ -184,6 +169,9 @@ if b == "ENTERPRISE" {
 		}
 	}
 
+} else {
+	messages = "CA Pool Tier Couldn't be Found"
+	print("CA Pool Tier Couldn't be Found")
 }
 
 GCP_CAS_CAENTALG = rule { length(messages_algorithm) is 0 }
