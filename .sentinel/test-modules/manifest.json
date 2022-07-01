@@ -1,7 +1,25 @@
 {
 	"records": [
 		{
-			"key": "test/security_gcp_certificate_authority_restriction/success_kms_crypto_key_policy/tfplan-functions",
+			"key": "test/security_gcp_certificate_authority_restriction/failure_kms_crypto_key_policy/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-updated2-devops2/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/ca-enterprise/gcp_cas_caentcmek_null/tfstate-functions",
+			"source": "../../tfstate-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-final/tfstate-functions.sentinel"
+		},
+		{
+			"key": "test/ca-enterprise/gcp_cas_caentcmek_pass/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-final/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/security_gcp_certificate_authority_restriction/null_privateca_ca_pool_issue_block_policy/tfplan-functions",
 			"source": "../../tfplan-functions.sentinel",
 			"sourceSum": "",
 			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-updated2-devops2/tfplan-functions.sentinel"
@@ -13,43 +31,43 @@
 			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-updated2-devops2/tfplan-functions.sentinel"
 		},
 		{
-			"key": "test/security_gcp_certificate_authority_restriction/null_privateca_ca_pool_issue_block_policy/tfplan-functions",
-			"source": "../../tfplan-functions.sentinel",
-			"sourceSum": "",
-			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-updated2-devops2/tfplan-functions.sentinel"
-		},
-		{
-			"key": "test/security_gcp_certificate_authority_restriction/failure_kms_crypto_key_policy/tfplan-functions",
-			"source": "../../tfplan-functions.sentinel",
-			"sourceSum": "",
-			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-updated2-devops2/tfplan-functions.sentinel"
-		},
-		{
-			"key": "test/security_gcp_certificate_authority_restriction/failure_privateca_certificate_authority_policy/tfplan-functions",
-			"source": "../../tfplan-functions.sentinel",
-			"sourceSum": "",
-			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-updated2-devops2/tfplan-functions.sentinel"
-		},
-		{
 			"key": "test/security_gcp_certificate_authority_restriction/failure_privateca_ca_pool_issue_block_policy/tfplan-functions",
 			"source": "../../tfplan-functions.sentinel",
 			"sourceSum": "",
 			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-updated2-devops2/tfplan-functions.sentinel"
 		},
 		{
-			"key": "test/security_gcp_certificate_authority_restriction/null_privateca_certificate_authority_policy/tfplan-functions",
+			"key": "test/ca-enterprise/gcp_cas_caentalg_fail/tfplan-functions",
 			"source": "../../tfplan-functions.sentinel",
 			"sourceSum": "",
-			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-updated2-devops2/tfplan-functions.sentinel"
+			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-final/tfplan-functions.sentinel"
 		},
 		{
-			"key": "test/security_gcp_certificate_authority_restriction/success_privateca_ca_pool_policy/tfplan-functions",
+			"key": "test/ca-enterprise/gcp_cas_caentalg_pass/tfstate-functions",
+			"source": "../../tfstate-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-final/tfstate-functions.sentinel"
+		},
+		{
+			"key": "test/ca-enterprise/gcp_cas_caentcmek_fail/tfplan-functions",
 			"source": "../../tfplan-functions.sentinel",
 			"sourceSum": "",
-			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-updated2-devops2/tfplan-functions.sentinel"
+			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-final/tfplan-functions.sentinel"
 		},
 		{
-			"key": "test/security_gcp_certificate_authority_restriction/success_privateca_certificate_authority_policy/tfplan-functions",
+			"key": "test/ca-enterprise/gcp_cas_caentcmek_null/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-final/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/ca-enterprise/gcp_cas_caentalg_null/tfstate-functions",
+			"source": "../../tfstate-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-final/tfstate-functions.sentinel"
+		},
+		{
+			"key": "test/security_gcp_certificate_authority_restriction/failure_privateca_ca_pool_expression_policy/tfplan-functions",
 			"source": "../../tfplan-functions.sentinel",
 			"sourceSum": "",
 			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-updated2-devops2/tfplan-functions.sentinel"
@@ -61,16 +79,70 @@
 			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-updated2-devops2/tfplan-functions.sentinel"
 		},
 		{
+			"key": "test/security_gcp_certificate_authority_restriction/success_privateca_ca_pool_policy/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-updated2-devops2/tfplan-functions.sentinel"
+		},
+		{
 			"key": "test/security_gcp_certificate_authority_restriction/failure_protection_level_empty_kms_crypto_key_policy/tfplan-functions",
 			"source": "../../tfplan-functions.sentinel",
 			"sourceSum": "",
 			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-updated2-devops2/tfplan-functions.sentinel"
 		},
 		{
-			"key": "test/security_gcp_certificate_authority_restriction/failure_privateca_ca_pool_expression_policy/tfplan-functions",
+			"key": "test/ca-enterprise/gcp_cas_caentalg_fail/tfstate-functions",
+			"source": "../../tfstate-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-final/tfstate-functions.sentinel"
+		},
+		{
+			"key": "test/ca-enterprise/gcp_cas_caentcmek_pass/tfstate-functions",
+			"source": "../../tfstate-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-final/tfstate-functions.sentinel"
+		},
+		{
+			"key": "test/security_gcp_certificate_authority_restriction/null_privateca_certificate_authority_policy/tfplan-functions",
 			"source": "../../tfplan-functions.sentinel",
 			"sourceSum": "",
 			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-updated2-devops2/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/ca-enterprise/gcp_cas_caentalg_null/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-final/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/security_gcp_certificate_authority_restriction/success_kms_crypto_key_policy/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-updated2-devops2/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/security_gcp_certificate_authority_restriction/failure_privateca_certificate_authority_policy/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-updated2-devops2/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/ca-enterprise/gcp_cas_caentcmek_fail/tfstate-functions",
+			"source": "../../tfstate-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-final/tfstate-functions.sentinel"
+		},
+		{
+			"key": "test/security_gcp_certificate_authority_restriction/success_privateca_certificate_authority_policy/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-updated2-devops2/tfplan-functions.sentinel"
+		},
+		{
+			"key": "test/ca-enterprise/gcp_cas_caentalg_pass/tfplan-functions",
+			"source": "../../tfplan-functions.sentinel",
+			"sourceSum": "",
+			"dest": "/home/rajeevghosh/WELLS-PHASE3/certificate-authority-service-final/tfplan-functions.sentinel"
 		}
 	]
 }

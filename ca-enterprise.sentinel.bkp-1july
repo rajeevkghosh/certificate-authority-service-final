@@ -110,7 +110,7 @@ find_resources = func(type) {
 	return resources
 }
 
-allCryptoKeyTfstateInstances = find_resources("google_kms_crypto_key2")
+allCryptoKeyTfstateInstances = find_resources("google_kms_crypto_key")
 
 //print(allCryptoKeyTfstateInstances)
 
@@ -118,7 +118,10 @@ array_tfstate_cryptokey = {}
 for allCryptoKeyTfstateInstances as address, rc {
 	cryptokeyname = tfstate.evaluate_attribute(rc, "name")
 	cryptokeyalgorithm = tfstate.evaluate_attribute(rc, "version_template.0.algorithm")
+	print("Hiiiiiiiiiiiiiiiiiiiiiii")
+	print("cryptokeyalgorithm::-->"+ plan.to_string(cryptokeyalgorithm))
 	array_tfstate_cryptokey[cryptokeyname] = cryptokeyalgorithm
+	print("hellonnnnnnnnnnnnnnnnnnn")
 }
 
 print(array_tfstate_cryptokey)
@@ -127,6 +130,8 @@ array_tfplan_cryptokey = {}
 for allCryptoKeyTfplanInstances as address, rc {
 	crypto_plan_keyname = plan.evaluate_attribute(rc, "name")
 	crypto_plan_key_algorithm = plan.evaluate_attribute(rc, "version_template.0.algorithm")
+	print(types.type_of(crypto_plan_key_algorithm))
+	
 	array_tfplan_cryptokey[crypto_plan_keyname] = crypto_plan_key_algorithm
 }
 
@@ -149,9 +154,10 @@ if (not (types.type_of(b) is "undefined") and b == "ENTERPRISE") {
 	for allCertAuthorityInstances as address, rc {
 
 		kms_key_version = plan.evaluate_attribute(rc, "key_spec.0.cloud_kms_key_version")
-		print(kms_key_version)
+		print("kms-value-->" + plan.to_string(kms_key_version))
+		print("kms-key-version value--->" + types.type_of(kms_key_version))
 
-		if kms_key_version == null {
+		if (kms_key_version == null)  {
 			messages_algorithm[address] = rc
 			print("kms key version undefined")
 		} else {
@@ -161,12 +167,21 @@ if (not (types.type_of(b) is "undefined") and b == "ENTERPRISE") {
 			print(array_cryptokey_main[c_key_name])
 			x = array_cryptokey_main[c_key_name]
 			print(x)
+            print("helllllll" + types.type_of(x))
+			is_x_undefined = rule {types.type_of(x) is "undefined"}
+			print("is x undefined--->"+ plan.to_string(is_x_undefined))
 
-			if not (x in allowed_algorithm) {
+			if is_x_undefined {
+				messages_algorithm[address] = rc
+				print("Please use cryptokey with version template and Algorithm for Certificate Authority for resource:"+address)
+			} else {
+				if not (x in allowed_algorithm)  {
 				print("Algorithm used to create " + c_key_name + " is not in Allowed Algorithm List")
 				messages_algorithm[address] = rc
 			}
+		 }
 		}
+	
 	}
 
 } else {

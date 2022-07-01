@@ -1,3 +1,8 @@
+/*mock "tfplan/v2" {
+  module {
+    source = "./mock-tfplan-v2-alg.sentinel"
+  }
+}*/
 mock "tfplan/v2" {
   module {
     source = "./mock-tfplan-v2-modified.sentinel"

@@ -1,0 +1,101 @@
+import "strings"
+
+providers = {
+	"google": {
+		"alias":               "",
+		"config":              {},
+		"module_address":      "",
+		"name":                "google",
+		"provider_config_key": "google",
+		"version_constraint":  "",
+	},
+}
+
+resources = {
+	"data.google_kms_crypto_key_version.crypto_key_version": {
+		"address": "data.google_kms_crypto_key_version.crypto_key_version",
+		"config": {
+			"crypto_key": {
+				"references": [
+					"google_kms_crypto_key.cryptokey-22.id",
+					"google_kms_crypto_key.cryptokey-22",
+				],
+			},
+		},
+		"count":               {},
+		"depends_on":          [],
+		"for_each":            {},
+		"mode":                "data",
+		"module_address":      "",
+		"name":                "crypto_key_version",
+		"provider_config_key": "google",
+		"provisioners":        [],
+		"type":                "google_kms_crypto_key_version",
+	},
+	"data.google_kms_key_ring.keyring-1": {
+		"address": "data.google_kms_key_ring.keyring-1",
+		"config": {
+			"location": {
+				"constant_value": "us-central1",
+			},
+			"name": {
+				"constant_value": "keyring-1",
+			},
+			"project": {
+				"constant_value": "modular-scout-345114",
+			},
+		},
+		"count":               {},
+		"depends_on":          [],
+		"for_each":            {},
+		"mode":                "data",
+		"module_address":      "",
+		"name":                "keyring-1",
+		"provider_config_key": "google",
+		"provisioners":        [],
+		"type":                "google_kms_key_ring",
+	},
+	"google_kms_crypto_key.cryptokey-22": {
+		"address": "google_kms_crypto_key.cryptokey-22",
+		"config": {
+			"key_ring": {
+				"references": [
+					"data.google_kms_key_ring.keyring-1.id",
+					"data.google_kms_key_ring.keyring-1",
+				],
+			},
+			"name": {
+				"constant_value": "cryptokey-22",
+			},
+			"rotation_period": {
+				"constant_value": "100000s",
+			},
+		},
+		"count":               {},
+		"depends_on":          [],
+		"for_each":            {},
+		"mode":                "managed",
+		"module_address":      "",
+		"name":                "cryptokey-22",
+		"provider_config_key": "google",
+		"provisioners":        [],
+		"type":                "google_kms_crypto_key",
+	},
+}
+
+provisioners = {}
+
+variables = {}
+
+outputs = {}
+
+module_calls = {}
+
+strip_index = func(addr) {
+	s = strings.split(addr, ".")
+	for s as i, v {
+		s[i] = strings.split(v, "[")[0]
+	}
+
+	return strings.join(s, ".")
+}

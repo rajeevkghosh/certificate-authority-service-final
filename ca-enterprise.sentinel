@@ -1,0 +1,194 @@
+# Import common-functions/tfplan-functions/tfplan-functions.sentinel
+# with alias "plan"
+import "tfstate-functions" as tfstate
+import "tfstate/v2" as tfstate2
+import "tfplan-functions" as plan
+import "strings"
+import "types"
+
+# Allowed Algorithm List
+allowed_algorithm = ["RSA_PSS_2048_SHA256", "RSA_PSS_3072_SHA256", "RSA_PSS_4096_SHA256", "RSA_PKCS1_2048_SHA256", "RSA_PKCS1_3072_SHA256", "RSA_PKCS1_4096_SHA256"]
+
+# Get all Composer Instances
+allCAPoolTfstateInstances = tfstate.find_resources("google_privateca_ca_pool")
+allCAPoolTfplanInstances = plan.find_resources("google_privateca_ca_pool")
+allCertAuthorityInstances = plan.find_resources("google_privateca_certificate_authority")
+allCryptoKeyTfplanInstances = plan.find_resources("google_kms_crypto_key")
+
+#print(allCAPoolTfstateInstances)
+
+array = {}
+for allCAPoolTfstateInstances as address, rc {
+	capoolname = tfstate.evaluate_attribute(rc, "name")
+	capooltier = tfstate.evaluate_attribute(rc, "tier")
+	array[capoolname] = capooltier
+}
+
+print("-----Tfstate Map------")
+print(array)
+
+array2 = {}
+for allCAPoolTfplanInstances as address, rc {
+	cpool_name = plan.evaluate_attribute(rc, "name")
+	cpool_tier = plan.evaluate_attribute(rc, "tier")
+	array2[cpool_name] = cpool_tier
+
+}
+print("-----TFPlan Map--------")
+print(array2)
+
+array_main = {}
+
+for array as address, rc {
+	array_main[address] = rc
+}
+
+for array2 as address, rc {
+	array_main[address] = rc
+}
+
+print("-------Final Map after Merge--------")
+print(array_main)
+b = 0
+c = 0
+for allCertAuthorityInstances as address, rc {
+
+	cert_pool_name = plan.evaluate_attribute(rc, "pool")
+	a = array_main[cert_pool_name]
+	b = a
+	c = cert_pool_name
+}
+print("  ")
+print("pool name:---> " + c)
+print("pool tier:---> " + b)
+print("  ")
+
+if b == "DEVOPS" {
+	print("The Tier is DEVOPS, hence Skipping policy checks for ENTERPRISE")
+}
+#print (types.type_of(b))
+#######################################################
+####--------------Enterprise Rule-1-----------------####
+#######################################################
+messages = {}
+if (not (types.type_of(b) is "undefined") and b == "ENTERPRISE") {
+	for allCertAuthorityInstances as address, rc {
+
+		ca_private_kms_key_version = plan.evaluate_attribute(rc, "key_spec.0.cloud_kms_key_version")
+		print("ca_private_kms_key_version is ", ca_private_kms_key_version)
+		if (types.type_of(ca_private_kms_key_version) is "undefined") or (types.type_of(ca_private_kms_key_version) is "null") or (length(ca_private_kms_key_version) == 0) {
+			messages[address] = rc
+			print("The value for ca_private_kms_key_version in Resource " + address + " can't be null or undefined or empty string")
+		} else {
+			cryptoKeyVersionlist = strings.split(ca_private_kms_key_version, "/")
+			if length(cryptoKeyVersionlist) > 1 {
+				if not (cryptoKeyVersionlist[0] == "projects" and cryptoKeyVersionlist[2] == "locations" and cryptoKeyVersionlist[4] == "keyRings" and cryptoKeyVersionlist[6] == "cryptoKeys" and cryptoKeyVersionlist[8] == "cryptoKeyVersions") {
+					messages[address] = rc
+					print("CryptoKeyVersion must be in the format projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*")
+				}
+			} else {
+				messages[address] = rc
+				print("CryptoKeyVersion must be in the format projects/*/locations/*/keyRings/*/cryptoKeys/*/cryptoKeyVersions/*")
+			}
+		}
+	}
+} else {
+    if (types.type_of(b) is "undefined") {
+	messages = "CA Pool Tier Couldn't be Found"
+	print("CA Pool Tier Couldn't be Found for pool for resource: "+address)
+	}
+}
+GCP_CAS_CACMEK = rule { length(messages) is 0 }
+
+#######################################################
+####--------------Enterprise Rule-2-----------------####
+#######################################################
+
+//allCryptoKeyTfstateInstances = tfstate.find_resources("google_kms_crypto_key_version")
+
+find_resources = func(type) {
+	resources = filter tfstate2.resources as address, r {
+		r.type is type
+	}
+
+	return resources
+}
+
+allCryptoKeyTfstateInstances = find_resources("google_kms_crypto_key")
+
+//print(allCryptoKeyTfstateInstances)
+
+array_tfstate_cryptokey = {}
+for allCryptoKeyTfstateInstances as address, rc {
+	cryptokeyname = tfstate.evaluate_attribute(rc, "name")
+	cryptokeyalgorithm = tfstate.evaluate_attribute(rc, "version_template.0.algorithm")
+	array_tfstate_cryptokey[cryptokeyname] = cryptokeyalgorithm
+}
+
+print(array_tfstate_cryptokey)
+
+array_tfplan_cryptokey = {}
+for allCryptoKeyTfplanInstances as address, rc {
+	crypto_plan_keyname = plan.evaluate_attribute(rc, "name")
+	crypto_plan_key_algorithm = plan.evaluate_attribute(rc, "version_template.0.algorithm")
+	array_tfplan_cryptokey[crypto_plan_keyname] = crypto_plan_key_algorithm
+}
+
+//print(allCryptoKeyTfplanInstances)
+print(array_tfplan_cryptokey)
+
+array_cryptokey_main = {}
+
+for array_tfstate_cryptokey as address, rc {
+	array_cryptokey_main[address] = rc
+}
+for array_tfplan_cryptokey as address, rc {
+	array_cryptokey_main[address] = rc
+}
+
+print(array_cryptokey_main)
+
+messages_algorithm = {}
+if (not (types.type_of(b) is "undefined") and b == "ENTERPRISE") {
+	for allCertAuthorityInstances as address, rc {
+
+		kms_key_version = plan.evaluate_attribute(rc, "key_spec.0.cloud_kms_key_version")
+		print("kms-value-->" + plan.to_string(kms_key_version))
+		print("kms-key-version value--->" + types.type_of(kms_key_version))
+
+		if (kms_key_version == null) {
+			messages_algorithm[address] = rc
+			print("kms key version undefined")
+		} else {
+			cryptoKeyName = strings.split(kms_key_version, "/")
+			print(cryptoKeyName[7])
+			c_key_name = cryptoKeyName[7]
+			print(array_cryptokey_main[c_key_name])
+			x = array_cryptokey_main[c_key_name]
+			print(x)
+			is_x_undefined = rule { types.type_of(x) is "undefined" }
+			print("is x undefined--->" + plan.to_string(is_x_undefined))
+
+			if is_x_undefined {
+				messages_algorithm[address] = rc
+				print("Please use cryptokey with version template and Algorithm for Certificate Authority for resource:" + address)
+			} else {
+				if not (x in allowed_algorithm) {
+					print("Algorithm used to create " + c_key_name + " is not in Allowed Algorithm List")
+					messages_algorithm[address] = rc
+				}
+			}
+		}
+
+	}
+
+} else {
+    if (types.type_of(b) is "undefined") {
+	messages = "CA Pool Tier Couldn't be Found"
+	print("CA Pool Tier Couldn't be Found for pool for resource: "+address)
+	}
+}
+
+GCP_CAS_CAENTALG = rule { length(messages_algorithm) is 0 }
+
+main = rule { GCP_CAS_CACMEK and GCP_CAS_CAENTALG }

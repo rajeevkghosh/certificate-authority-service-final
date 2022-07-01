@@ -1,0 +1,101 @@
+import "strings"
+import "types"
+
+_modules = {
+	"root": {
+		"data": {
+			"google_kms_crypto_key_version": {
+				"crypto_key_version": {
+					"config":       {},
+					"provisioners": null,
+					"references": {
+						"crypto_key": [
+							"google_kms_crypto_key.cryptokey-22.id",
+							"google_kms_crypto_key.cryptokey-22",
+						],
+					},
+				},
+			},
+			"google_kms_key_ring": {
+				"keyring-1": {
+					"config": {
+						"location": "us-central1",
+						"name":     "keyring-1",
+						"project":  "modular-scout-345114",
+					},
+					"provisioners": null,
+					"references": {
+						"location": [],
+						"name":     [],
+						"project":  [],
+					},
+				},
+			},
+		},
+		"modules": {},
+		"outputs": {},
+		"providers": {
+			"google": {
+				"alias": {
+					"": {
+						"config":     {},
+						"references": {},
+						"version":    "",
+					},
+				},
+				"config":     {},
+				"references": {},
+				"version":    "",
+			},
+		},
+		"resources": {
+			"google_kms_crypto_key": {
+				"cryptokey-22": {
+					"config": {
+						"name":            "cryptokey-22",
+						"rotation_period": "100000s",
+					},
+					"provisioners": null,
+					"references": {
+						"key_ring": [
+							"data.google_kms_key_ring.keyring-1.id",
+							"data.google_kms_key_ring.keyring-1",
+						],
+						"name":            [],
+						"rotation_period": [],
+					},
+				},
+			},
+		},
+		"variables": {},
+	},
+}
+
+module_paths = [
+	[],
+]
+
+module = func(path) {
+	if types.type_of(path) is not "list" {
+		error("expected list, got", types.type_of(path))
+	}
+
+	if length(path) < 1 {
+		return _modules.root
+	}
+
+	addr = []
+	for path as p {
+		append(addr, "module")
+		append(addr, p)
+	}
+
+	return _modules[strings.join(addr, ".")]
+}
+
+data = _modules.root.data
+modules = _modules.root.modules
+providers = _modules.root.providers
+resources = _modules.root.resources
+variables = _modules.root.variables
+outputs = _modules.root.outputs
